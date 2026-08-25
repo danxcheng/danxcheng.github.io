@@ -1,0 +1,13 @@
+{{- /* 单篇文章页：标题 → 元信息 → 折叠目录 → 正文 */}}
+{{ define "main" }}
+    <div class="content-body">
+        <article>
+            <h1 class="display display-article">{{ .Title }}</h1>
+            {{ partial "post-meta.html" . }}
+            {{ partial "toc.html" . }}
+            <div class="prose">
+                {{ .Content }}
+            </div>
+        </article>
+    </div>
+{{ end }}

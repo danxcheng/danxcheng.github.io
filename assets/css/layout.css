@@ -1,0 +1,145 @@
+/* 两栏容器：max-width 880px 收紧行长（≈32 汉字，调研建议 30-45 汉字）。
+   margin:auto —— 短页面时在 body 里上下左右居中；内容超一屏后
+   上下 margin 归零贴顶，不裁切。移动端改单列，见 responsive.css。 */
+.layout {
+  max-width: 880px;
+  width: 100%;
+  margin: auto;
+  padding: 2rem 1.5rem 4rem;   /* 顶部呼吸空间（移动端 2rem） */
+  display: flex;
+  gap: 3rem;                   /* 侧栏与正文间距 */
+  align-items: flex-start;
+  min-height: calc(100vh - 6rem);  /* 短页面时容器至少填满一屏 */
+}
+
+/* 侧栏 sticky：长文滚动时随内容上移，到距顶 5rem 的呼吸位停住 */
+.sidebar {
+  position: sticky;
+  top: 5rem;
+  width: 200px;
+  flex-shrink: 0;
+}
+
+/* 右列占剩余宽度；min-width:0 允许收缩（防长单词撑破） */
+.content { flex: 1; min-width: 0; }
+
+.content-body { width: 100%; }
+
+/* md/lg 加大顶部呼吸空间（Mitchell：md:mt-20 / lg:mt-32） */
+@media (min-width: 768px) {
+  .layout { padding-top: 5rem; min-height: calc(100vh - 9rem); }
+}
+@media (min-width: 1024px) {
+  .layout { padding-top: 8rem; min-height: calc(100vh - 12rem); }
+}
+
+/* 侧栏头：图标 + 移动端标题同一行，垂直居中 */
+.sidebar-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+
+.site-logo {
+  display: inline-flex;
+  line-height: 0;              /* 去掉 SVG 底部留白 */
+  color: var(--link);
+  text-decoration: none;
+}
+.site-logo:hover { text-decoration: none; opacity: 0.85; }
+
+/* 站点标题链接（正文列顶部与移动端侧栏头共用） */
+.display-link { color: var(--text); text-decoration: none; }
+.display-link:hover { color: var(--link); text-decoration: none; }
+
+.nav-menu { list-style: none; margin: 0; padding: 0; }
+
+/* 圆点绝对定位不占位，导航文字才和图标/"简体中文"左缘对齐 */
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.35rem 0;
+}
+.nav-dot {
+  position: absolute;
+  left: -0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: transparent;
+}
+.nav-item a {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.nav-item a:hover { opacity: 0.6; text-decoration: none; }
+
+/* 当前页：朱砂圆点 + 朱砂文字 */
+.nav-item.active .nav-dot { background: var(--link); }
+.nav-item.active a { color: var(--link); }
+
+/* 语言切换器：列表默认隐藏，悬停/聚焦弹出；向上弹（在侧栏下部） */
+.lang-switch {
+  margin-top: 2.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+}
+.lang-menu { position: relative; display: inline-block; }
+.lang-current {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+.lang-current:hover { color: var(--link); }
+.lang-caret { font-size: 0.7rem; }
+.lang-list {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 9rem;
+  margin: 0;
+  padding: 0.4rem 0;
+  list-style: none;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+.lang-menu:hover .lang-list,
+.lang-menu:focus-within .lang-list { display: block; }
+.lang-list li { padding: 0; }
+.lang-list a {
+  display: block;
+  padding: 0.35rem 0.9rem;
+  color: var(--text);
+  text-decoration: none;
+}
+.lang-list a:hover { color: var(--link); background: var(--bg); }
+
+/* 显示标题：无衬线 + 大写 + 加宽字距（Archivo stretch 115%）。
+   17px 与正文同量级（Mitchell 标题实测 15-17px）。
+   变体：desktop=正文列顶部；mobile=侧栏头；article=文章页标题。 */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 115%;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;      /* 克制字距（调研：过宽字距影响阅读速度） */
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  margin: 0 0 5rem;            /* 与正文留白（Mitchell mb-20） */
+  color: var(--text);
+}
+/* 17px × 1.4 ≈ 24px，与 24px 图标等高，零偏移即垂直对齐 */
+.display-desktop { display: block; margin-top: 0; }
+.display-mobile { display: none; margin: 0; }
+.display-article { margin: 0 0 2.75rem; }  /* Mitchell md:mb-11 */

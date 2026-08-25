@@ -1,0 +1,91 @@
+/* 文章列表 */
+.post-list { list-style: none; margin: 0; padding: 0; }
+
+.post-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border);  /* 米色细线分隔 */
+}
+
+.post-date {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.post-title { font-size: 1rem; color: var(--text); }
+.post-title:hover { color: var(--link); text-decoration: none; }
+
+.empty-hint { color: var(--muted); }
+
+/* 文章页元信息（日期 + 标签） */
+.post-meta { margin: 0 0 1.5rem; font-size: 0.9rem; }
+.post-meta .post-date { font-size: 0.85rem; }
+
+.post-tags a {
+  margin-left: 0.75rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.post-tags a:hover { color: var(--link); }
+
+/* 标签总览页 */
+.tag-list { list-style: none; padding: 0; margin: 0; }
+.tag-list li { padding: 0.35rem 0; }
+.tag-list a { color: var(--text); }
+.tag-list a:hover { color: var(--link); }
+
+/* 文章目录：<details> 折叠，粗体摘要 + 缩进列表 */
+.toc { margin: 1.5em 0 2.5em; font-size: 0.9rem; }
+
+.toc summary {
+  display: inline-block;
+  list-style: none;          /* 去掉浏览器默认三角 */
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.35rem 0;
+}
+.toc summary::-webkit-details-marker { display: none; }
+.toc summary::after { content: " ▾"; color: var(--muted); font-size: 0.8em; }
+.toc[open] summary::after { content: " ▴"; }
+.toc summary:hover { color: var(--link); }
+
+.toc ul { margin: 0.5rem 0 0; padding-left: 1.5rem; }
+.toc li { margin: 0.3em 0; }
+.toc a { color: var(--muted); }
+.toc a:hover { color: var(--link); }
+
+/* 分页 */
+.pagination {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  margin: 2.5rem 0 0;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* 页脚（在右列内，自然流，滚动到文末才见） */
+.site-footer { margin-top: 4rem; }
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.footer-links { display: flex; align-items: center; gap: 0.9rem; }
+.footer-links a { color: var(--muted); display: inline-flex; align-items: center; }
+.footer-links a:hover { color: var(--link); }
+.footer-links svg { display: block; }

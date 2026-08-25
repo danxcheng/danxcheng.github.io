@@ -1,0 +1,14 @@
+{{- /* 侧栏：图标 + 移动端标题一行；下方导航 + 语言切换。
+         桌面标题在 baseof 正文列顶部，与图标同一水平线对齐。 */}}
+<div class="sidebar-head">
+    {{ partial "logo.html" . }}
+    {{- /* 移动端标题（CSS display-mobile 控制显示/隐藏） */}}
+    <h1 class="display display-mobile"><a class="display-link" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a></h1>
+</div>
+<nav class="nav" aria-label="{{ i18n "nav" }}">
+    <ul class="nav-menu">
+        {{- /* dict 传参是 Hugo partial 的推荐方式：menuID=菜单名，page=当前页（用于高亮） */}}
+        {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+    </ul>
+    {{ partial "lang-switch.html" . }}
+</nav>

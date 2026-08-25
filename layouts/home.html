@@ -1,0 +1,8 @@
+{{- /* 首页：简介式。标题已在 baseof 渲染，这里只输出 content/_index.md 的正文 */}}
+{{ define "main" }}
+    <div class="content-body">
+        <div class="prose">
+            {{ .Content }}
+        </div>
+    </div>
+{{ end }}

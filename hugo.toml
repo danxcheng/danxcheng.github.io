@@ -1,3 +1,100 @@
-baseURL = 'https://example.org/'
-locale = 'en-us'
-title = 'My New Hugo Project'
+# ============================================================
+# danxcheng.github.io — Hugo 站点配置
+#
+# 本文件是 Hugo 的全部站点配置。修改后保存，hugo server 会自动重载。
+# 常用官方文档：
+#   - 配置总览：https://gohugo.io/getting-started/configuration/
+#   - 多语言：  https://gohugo.io/content-management/multilingual/
+# ============================================================
+
+# 线上域名。本地预览无所谓，发布到 GitHub Pages 后所有
+# canonical / sitemap / RSS 里的绝对链接都以此为准。
+baseURL = 'https://danxcheng.github.io/'
+
+# 站点名：显示在侧边栏标题、<title>、页脚等处。
+title = 'Danxcheng'
+
+# ------------------------------------------------------------
+# 多语言基础设置
+#   defaultContentLanguage          = 默认语言（zh 是主语言）
+#   defaultContentLanguageInSubdir  = 默认语言也要挂在子目录下
+#                                     （中文站访问 /zh/，而非直接 /）
+# 作用：根路径 / 会生成一个自动跳转到 /zh/ 的重定向页。
+# ------------------------------------------------------------
+defaultContentLanguage = 'zh'
+defaultContentLanguageInSubdir = true
+
+# ------------------------------------------------------------
+# 站点级参数（模板里用 site.Params.xxx 读取）
+# ------------------------------------------------------------
+[params]
+  # 站点描述：<meta name="description"> 的最后一级回退
+  # （页面没有 description、也没有正文摘要时用它）。
+  description = 'Danxcheng 的个人主页：技术笔记、生活记录与随想。'
+
+  # 页脚社交链接。模板 layouts/partials/footer.html 约定：
+  #   name = 'mail'   -> 渲染为邮件图标（mailto:）
+  #   name = 'github' -> 渲染为 GitHub 图标
+  #   其它 name       -> 渲染为普通文字链接
+  # 想加图标：在 footer.html 里补一个 name 分支 + inline SVG 即可。
+  [[params.social]]
+    name = 'mail'
+    url = 'danxcheng@outlook.com'
+  [[params.social]]
+    name = 'github'
+    url = 'https://github.com/danxcheng'
+
+# ------------------------------------------------------------
+# 每种页面类型要输出哪些格式。
+#   home    = 首页；section = 分区页（如 /posts/）
+#   HTML    = 网页本身
+#   RSS     = 文章订阅源（导航/页脚里的 RSS 链接依赖它）
+# ------------------------------------------------------------
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+# ------------------------------------------------------------
+# 语言定义。
+# 注意：v0.158 起弃用了 languageCode/languageName/languageDirection，
+# 请使用下面这套新键名：
+#   locale    = 语言区域（写入 <html lang>、hreflang）
+#   label     = 界面显示名（语言切换器里显示）
+#   direction = 书写方向（中文/英文都是 ltr 左到右）
+#   weight    = 语言排序权重（越小越靠前，也是切换器顺序）
+# 每语言还可以定义自己的主菜单 [menus.main]。
+# ------------------------------------------------------------
+[languages]
+
+  [languages.zh]
+    locale = 'zh-CN'
+    label = '简体中文'
+    direction = 'ltr'
+    weight = 1
+
+    # 中文主菜单。
+    # pageRef 指向页面路径（推荐写法，比 url 更智能）：
+    # '/' = 首页，'/posts' = 文章分区。菜单项会随语言自动解析。
+    [[languages.zh.menus.main]]
+      name = '首页'
+      pageRef = '/'
+      weight = 1
+    [[languages.zh.menus.main]]
+      name = '文章'
+      pageRef = '/posts'
+      weight = 2
+
+  [languages.en]
+    locale = 'en-US'
+    label = 'English'
+    direction = 'ltr'
+    weight = 2
+
+    [[languages.en.menus.main]]
+      name = 'Home'
+      pageRef = '/'
+      weight = 1
+    [[languages.en.menus.main]]
+      name = 'Posts'
+      pageRef = '/posts'
+      weight = 2

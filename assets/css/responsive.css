@@ -1,0 +1,46 @@
+/* 移动端（≤768px）：两栏改单列，侧栏变顶栏 */
+@media (max-width: 768px) {
+  body { font-size: 16px; }
+
+  .layout {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .sidebar { position: static; top: auto; width: 100%; }
+  .content-body { width: 100%; }
+  .display { margin: 0 0 2.5rem; }
+
+  /* 标题切换：侧栏头显示，正文列顶部隐藏 */
+  .display-desktop { display: none; }
+  .display-mobile { display: block; }
+
+  /* 移动端不居中 */
+  .sidebar, .content { margin: 0; }
+
+  .sidebar-head { margin-bottom: 1.5rem; }
+
+  /* 导航横排可换行 */
+  .nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .nav-dot { display: none; }
+
+  /* 语言列表内联（触摸设备无法悬停） */
+  .lang-switch { margin-top: 1.25rem; }
+  .lang-list { display: block; position: static; bottom: auto; margin-top: 0.5rem; }
+
+  .display-article { margin: 0 0 2rem; }
+
+  /* 页脚堆叠居中 */
+  .footer-inner {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+  .footer-links { gap: 0.9rem; }
+}

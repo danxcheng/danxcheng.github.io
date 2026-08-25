@@ -1,0 +1,34 @@
+# ============================================================
+# English UI strings (Hugo i18n translation table)
+# Same keys as zh.toml; Hugo picks per language.
+# ============================================================
+
+[nav]
+other = "Navigation"
+
+[latest_posts]
+other = "Latest Posts"
+
+[no_posts]
+other = "No posts yet."
+
+[language_switcher]
+other = "Switch language"
+
+[prev]
+other = "Prev"
+
+[next]
+other = "Next"
+
+[pagination]
+other = "Pagination"
+
+[toc]
+other = "Contents"
+
+[tags]
+other = "Tags"
+
+[not_found]
+other = "Page not found."

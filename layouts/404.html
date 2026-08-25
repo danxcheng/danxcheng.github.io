@@ -1,0 +1,9 @@
+{{- /* 404：每种语言生成一页（/zh/404.html）；static/404.html 负责根域跳转 */}}
+{{ define "main" }}
+    <div class="content-body">
+        <h1 class="display">404</h1>
+        <div class="prose">
+            <p>{{ i18n "not_found" }}</p>
+        </div>
+    </div>
+{{ end }}

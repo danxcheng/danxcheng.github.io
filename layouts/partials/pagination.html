@@ -1,0 +1,9 @@
+{{- /* 分页导航：超过一页才渲染；依赖 section.html 的 .Paginate */}}
+{{- $p := .Paginator }}
+{{- if gt $p.TotalPages 1 }}
+    <nav class="pagination" aria-label="{{ i18n "pagination" }}">
+        {{- if $p.HasPrev }}<a href="{{ $p.Prev.URL }}">&larr; {{ i18n "prev" }}</a>{{ end }}
+        <span>{{ $p.PageNumber }} / {{ $p.TotalPages }}</span>
+        {{- if $p.HasNext }}<a href="{{ $p.Next.URL }}">{{ i18n "next" }} &rarr;</a>{{ end }}
+    </nav>
+{{- end }}

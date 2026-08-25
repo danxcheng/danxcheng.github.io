@@ -1,0 +1,9 @@
+/* 样式入口：按依赖顺序引入分片，css.Build（esbuild）合并成一个文件。
+   顺序即最终层叠顺序：字体 → 变量 → 基础 → 布局 → 正文 → 组件 → 响应式。 */
+@import "fonts.css";
+@import "tokens.css";
+@import "base.css";
+@import "layout.css";
+@import "prose.css";
+@import "components.css";
+@import "responsive.css";

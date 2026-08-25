@@ -1,0 +1,21 @@
+{{- /* 语言切换器：悬停/聚焦弹出，支持任意多语言（加语言零模板改动）。
+         hugo.Sites = 全部语言站点（v0.156 起替代弃用的 .Site.Sites）。
+         链接：当前页有翻译跳翻译页，没有则回退该语言首页。 */}}
+<div class="lang-switch">
+    <div class="lang-menu" tabindex="0">
+        <span class="lang-current">
+            {{ site.Language.Label }}
+            <span class="lang-caret" aria-hidden="true">&#9662;</span>
+        </span>
+        <ul class="lang-list">
+            {{ range hugo.Sites }}
+                {{ if ne .Language.Name site.Language.Name }}
+                    {{ $tr := where $.Translations "Language.Name" .Language.Name }}
+                    <li>
+                        <a href="{{ with $tr }}{{ (index . 0).RelPermalink }}{{ else }}{{ .Home.RelPermalink }}{{ end }}" hreflang="{{ .Language.Locale }}">{{ .Language.Label }}</a>
+                    </li>
+                {{ end }}
+            {{ end }}
+        </ul>
+    </div>
+</div>

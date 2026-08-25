@@ -1,0 +1,12 @@
+{{- /* 文章元信息：日期 + 标签；两者都没有时不输出 */}}
+{{- $tags := .GetTerms "tags" }}
+{{- if or .Date $tags }}
+    <div class="post-meta">
+        {{- with .Date }}<time class="post-date" datetime="{{ .Format "2006-01-02" }}">{{ .Format "2006/01/02" }}</time>{{ end }}
+        {{- with $tags }}
+            <span class="post-tags">
+                {{- range . }}<a href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>{{ end }}
+            </span>
+        {{- end }}
+    </div>
+{{- end }}

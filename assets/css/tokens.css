@@ -1,0 +1,36 @@
+/* 设计变量：两色（米白暖底 + 墨黑正文）+ 朱砂强调。
+   色值取自调研参考的"羊皮纸/古籍"质感；对比度均过 WCAG AA（4.5:1）。 */
+:root {
+  --bg: #f7f1e3;          /* 米白暖底 */
+  --bg-soft: #efe7d4;     /* pre/code 底色，比主背景深一档 */
+  --text: #211d16;        /* 墨黑正文（近黑非纯黑，对比 >12:1） */
+  --muted: #6f675a;       /* 日期/页脚等小字 */
+  --link: #b03a1e;        /* 朱砂红 */
+  --link-hover: #8f2d15;
+  --accent: #c4483a;      /* 行内代码色 */
+  --border: #e3d9c2;      /* 细线 */
+  --code-bg: #efe7d4;
+
+  /* 标题/UI 用无衬线（Archivo），正文用衬线（Georgia/宋体），代码等宽 */
+  --font-display: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body: Georgia, 'Times New Roman', 'Songti SC', 'SimSun',
+    'Noto Serif CJK SC', 'Source Han Serif SC', serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas,
+    'Liberation Mono', monospace;
+}
+
+/* 暗色模式跟随系统。用深灰底而非纯黑，文字用暖白，避免黑底光晕（调研规范） */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1712;
+    --bg-soft: #262019;
+    --text: #e9e2d3;
+    --muted: #a39a87;
+    --link: #e08a5f;
+    --link-hover: #f0a47e;
+    --accent: #f2a48f;
+    --border: #3a332a;
+    --code-bg: #262019;
+  }
+}

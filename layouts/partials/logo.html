@@ -1,0 +1,9 @@
+{{- /* 站点图标（占位）：朱砂印章方块，颜色跟随 --link 自动适配明暗。
+         画好图标后直接替换这里的 <svg>，或改用 <img src="/xxx.svg">。 */}}
+<a class="site-logo" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}" title="{{ site.Title }}">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        {{- /* 外方内方：外层朱砂，内层镂空露背景色 */}}
+        <rect x="1" y="1" width="22" height="22" rx="5" fill="currentColor"/>
+        <rect x="7.5" y="7.5" width="9" height="9" rx="2" fill="var(--bg)"/>
+    </svg>
+</a>

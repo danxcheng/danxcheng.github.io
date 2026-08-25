@@ -1,0 +1,11 @@
+{{- /* 标签总览页（/tags/）：.Data.Terms = 全部标签，.Count = 文章数 */}}
+{{ define "main" }}
+    <div class="content-body">
+        <h1 class="display display-article">{{ .Title }}</h1>
+        <ul class="tag-list">
+            {{- range .Data.Terms.ByCount }}
+                <li><a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a> ({{ .Count }})</li>
+            {{- end }}
+        </ul>
+    </div>
+{{ end }}

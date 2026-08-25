@@ -1,0 +1,19 @@
+{{- /* 样式管线：css.Build（esbuild）。
+         开发：不压缩 + sourceMap；生产：压缩 + 指纹 + SRI。
+         CSS 里 url('../fonts/...') 会被 esbuild 解析成带哈希的独立资源，
+         所以字体放 assets/fonts/ 而不是 static/fonts/。 */}}
+{{- with resources.Get "css/main.css" }}
+    {{- $opts := dict
+        "minify" (cond hugo.IsDevelopment false true)
+        "sourceMap" (cond hugo.IsDevelopment "linked" "none")
+    }}
+    {{- with . | css.Build $opts }}
+        {{- if hugo.IsDevelopment }}
+            <link rel="stylesheet" href="{{ .RelPermalink }}">
+        {{- else }}
+            {{- with . | fingerprint }}
+                <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+            {{- end }}
+        {{- end }}
+    {{- end }}
+{{- end }}

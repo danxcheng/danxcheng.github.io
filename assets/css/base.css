@@ -1,0 +1,38 @@
+/* 盒模型统一：宽高含 padding/border */
+* { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;  /* iOS 横屏不自动放大文字 */
+  scrollbar-gutter: stable;        /* 预留滚动条宽度，页面切换不左右跳 */
+}
+@supports not (scrollbar-gutter: stable) {
+  html { overflow-y: scroll; }     /* 老浏览器回退：恒显滚动条 */
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;                   /* 纵向 flex + 下方 .layout margin:auto */
+  flex-direction: column;          /* 实现短页面整体垂直居中 */
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 18px;                 /* 舒适区字号（调研：Rello 2016 等） */
+  line-height: 1.75;               /* 中文 1.6-2.0 区间取 1.75 */
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img, video, iframe { max-width: 100%; }
+
+/* 键盘 Tab 聚焦才显示焦点环，鼠标点击不显示 */
+a:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* 选中文字用朱砂底 */
+::selection { background: var(--link); color: var(--bg); }

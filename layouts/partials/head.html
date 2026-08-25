@@ -1,0 +1,29 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{{- /* 非首页显示 "页面标题 - 站点名" */}}
+<title>{{ if not .IsHome }}{{ .Title }} - {{ end }}{{ site.Title }}</title>
+
+{{- /* SEO 描述回退链：页面 description → 正文摘要 → 站点参数 */}}
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | htmlUnescape }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
+
+<link rel="canonical" href="{{ .Permalink }}">
+{{ hugo.Generator }}
+
+{{- /* RSS 自动发现（地址栏可见订阅源） */}}
+{{ with .OutputFormats.Get "rss" }}
+    <link rel="alternate" type="application/rss+xml" title="{{ if not $.IsHome }}{{ $.Title }} - {{ end }}{{ site.Title }}" href="{{ .Permalink }}">
+{{ end }}
+
+{{- /* Favicon 预留：图标画好后放 static/ 并取消注释 */}}
+<!--
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+-->
+
+{{- /* 社交分享卡片（Hugo 内置，自动从页面元数据生成） */}}
+{{ template "_internal/opengraph.html" . }}
+{{ template "_internal/twitter_cards.html" . }}
+
+{{ partialCached "head/css.html" . }}

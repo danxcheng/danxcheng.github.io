@@ -1,0 +1,16 @@
+# Hugo 构建输出
+/public/
+/resources/_gen/
+
+# Hugo 构建锁
+.hugo_build.lock
+
+# 自动生成的统计文件
+hugo_stats.json
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/

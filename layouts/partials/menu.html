@@ -1,0 +1,17 @@
+{{- /* 主菜单：当前页左侧朱砂圆点（.nav-dot）。
+         IsMenuCurrent = 当前页就是该项；HasMenuCurrent = 当前页在项的子级。
+         pageRef 解析不到页面的项（如英文站暂无 posts 分区）.URL 为空，直接跳过。 */}}
+{{- $page := .page }}
+{{- $menuID := .menuID }}
+{{- with index site.Menus $menuID }}
+    {{- range . }}
+        {{- if .URL }}
+            {{- $active := $page.IsMenuCurrent $menuID . }}
+            {{- $ancestor := $page.HasMenuCurrent $menuID . }}
+            <li class="nav-item{{ if $active }} active{{ else if $ancestor }} ancestor{{ end }}">
+                <span class="nav-dot" aria-hidden="true"></span>
+                <a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+            </li>
+        {{- end }}
+    {{- end }}
+{{- end }}

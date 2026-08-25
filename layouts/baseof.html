@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{{- /* lang 写入语言区域（zh-CN/en-US），dir 是书写方向 */}}
+<html lang="{{ site.Language.Locale }}" dir="{{ or site.Language.Direction "ltr" }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  <div class="layout">
+    {{- /* 左列：图标 + 导航 + 语言切换（sidebar.html） */}}
+    <aside class="sidebar">
+      {{ partial "sidebar.html" . }}
+    </aside>
+    {{- /* 右列：桌面标题放正文列顶部，与左图标同一水平线（Mitchell 布局） */}}
+    <main class="content">
+      <h1 class="display display-desktop"><a class="display-link" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a></h1>
+      {{- /* 页面正文：home/section/single 等模板用 define "main" 注入 */}}
+      {{ block "main" . }}{{ end }}
+      {{- /* 页脚在右列内：只占正文宽，滚动到文末才见 */}}
+      <footer class="site-footer">
+        {{ partial "footer.html" . }}
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

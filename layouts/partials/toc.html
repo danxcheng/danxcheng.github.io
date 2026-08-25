@@ -1,0 +1,29 @@
+{{- /* 折叠目录：正文有标题才输出。
+         坑：正文没有 h1（只有 h2+）时，Hugo 的 Fragments.Headings 会把
+         h2+ 包在一个空 ID 的顶层条目下，检测到后展开其子级作顶层。 */}}
+{{- $headings := .Page.Fragments.Headings }}
+{{- with $headings }}
+    {{- $items := . }}
+    {{- $first := index $items 0 }}
+    {{- if not $first.ID }}
+        {{- $items = $first.Headings }}
+    {{- end }}
+    <details class="toc">
+        <summary>{{ i18n "toc" }}</summary>
+        <ul>
+            {{- range $items }}
+                <li>
+                    {{- /* #ID 对应正文标题锚点；配合 CSS scroll-margin-top 不被遮挡 */}}
+                    <a href="#{{ .ID }}">{{ .Title }}</a>
+                    {{- with .Headings }}
+                        <ul>
+                            {{- range . }}
+                                <li><a href="#{{ .ID }}">{{ .Title }}</a></li>
+                            {{- end }}
+                        </ul>
+                    {{- end }}
+                </li>
+            {{- end }}
+        </ul>
+    </details>
+{{- end }}
