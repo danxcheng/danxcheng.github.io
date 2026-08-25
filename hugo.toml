@@ -98,3 +98,8 @@ defaultContentLanguageInSubdir = true
       name = 'Posts'
       pageRef = '/posts'
       weight = 2
+
+# 图片处理缓存目录（官方部署指南建议：指向 Actions 缓存，加速重复构建）
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'

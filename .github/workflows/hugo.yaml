@@ -1,9 +1,13 @@
-# 部署 Hugo 站点到 GitHub Pages
-# 使用前提：
-#   1. 仓库 Settings → Pages → Source 选 "GitHub Actions"
-#   2. 仓库为公开仓库（免费版私有仓库不支持 Pages）
-# 流程：push 到 main 或手动触发 → 构建 public/ → 部署 Pages
-name: Deploy Hugo site to GitHub Pages
+# ============================================================
+# Hugo 站点部署到 GitHub Pages（官方推荐方式）
+# 参考：https://gohugo.io/hosting-and-deployment/hosting-on-github/
+#
+# 重要前提（必须手动设置一次）：
+#   GitHub 仓库 Settings → Pages → Source 选择 "GitHub Actions"
+#   否则 GitHub 会按"从分支部署"把 main 根目录的源码直接发布，
+#   与本 workflow 互相覆盖，页面时好时坏。
+# ============================================================
+name: Build and deploy Hugo site to GitHub Pages
 
 on:
   push:
@@ -27,18 +31,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.165.0   # 与本地 hugo 版本一致
+      HUGO_VERSION: 0.165.0
       TZ: Asia/Shanghai
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: recursive
           fetch-depth: 0
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Install Hugo (extended)
         run: |
@@ -49,8 +53,7 @@ jobs:
           echo "${{ runner.temp }}/hugo" >> "${GITHUB_PATH}"
 
       - name: Build
-        run: |
-          hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -66,4 +69,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
