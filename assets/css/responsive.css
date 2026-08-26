@@ -9,6 +9,7 @@
   }
 
   .sidebar { position: static; top: auto; width: 100%; }
+  .rightbar { display: none; }   /* 移动端无三栏，日期回到文章标题下方 */
   .content-body { width: 100%; }
   .display { margin: 0 0 2.5rem; }
 

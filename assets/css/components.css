@@ -26,6 +26,11 @@
 .post-meta { margin: 0 0 1.5rem; font-size: 0.9rem; }
 .post-meta .post-date { font-size: 0.85rem; }
 
+/* 桌面端：日期已显示在右侧栏，隐藏标题下方重复的日期；移动端恢复（右栏隐藏时兜底） */
+@media (min-width: 768px) {
+  .post-meta .post-date { display: none; }
+}
+
 .post-tags a {
   margin-left: 0.75rem;
   color: var(--muted);
