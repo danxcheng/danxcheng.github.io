@@ -55,18 +55,26 @@
 
 .nav-menu { list-style: none; margin: 0; padding: 0; }
 
-/* "栏目"分组标签：小号大写灰字 */
+/* "栏目"分组：默认收起，点击标签展开子栏目（details/summary） */
 .nav-group { margin-top: 2.5rem; }
 .nav-group-title {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  list-style: none;          /* 去掉 details 默认三角 */
+  cursor: pointer;
+  user-select: none;
   font-family: var(--font-display);
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 0.25rem;
 }
-.nav-children { list-style: none; margin: 0; padding: 0; }
+.nav-group-title::-webkit-details-marker { display: none; }
+.nav-group-title:hover { color: var(--link); }
+.nav-group-caret { font-size: 0.6rem; transition: transform 0.15s; }
+.nav-group-details[open] .nav-group-caret { transform: rotate(90deg); }
+.nav-children { list-style: none; margin: 0.5rem 0 0; padding: 0; }
 
 /* 圆点绝对定位不占位，导航文字才和图标/"简体中文"左缘对齐 */
 .nav-item {

@@ -1,27 +1,31 @@
 {{- /* 主菜单：两级结构。
-     顶层项：带 .Children 的（如"栏目"）渲染为分组标签；有 URL 的渲染为链接。
-     子项：当前页左侧朱砂圆点（.nav-dot）。
-     pageRef 解析不到页面的项 .URL 为空，直接跳过（如某语言暂无该分区）。 */}}
+     顶层项：带 .Children 的（如"栏目"）渲染为可折叠分组（默认收起，点击展开）；
+     有 URL 的渲染为链接。子项：当前页左侧朱砂圆点。
+     pageRef 解析不到页面的项 .URL 为空，直接跳过。 */}}
 {{- $page := .page }}
 {{- $menuID := .menuID }}
 {{- with index site.Menus $menuID }}
     <ul class="nav-menu">
         {{- range . }}
             {{- if .Children }}
-                {{- /* 分组标签（无链接，仅作栏目标题） */}}
+                {{- /* 可折叠分组：默认收起，点标签展开子栏目 */}}
                 <li class="nav-group">
-                    <span class="nav-group-title">{{ .Name }}</span>
-                    <ul class="nav-children">
-                        {{- range .Children }}
-                            {{- if .URL }}
-                                {{- $active := $page.IsMenuCurrent $menuID . }}
-                                <li class="nav-item{{ if $active }} active{{ end }}">
-                                    <span class="nav-dot" aria-hidden="true"></span>
-                                    <a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
-                                </li>
+                    <details class="nav-group-details">
+                        <summary class="nav-group-title">
+                            {{ .Name }}<span class="nav-group-caret" aria-hidden="true">&#9656;</span>
+                        </summary>
+                        <ul class="nav-children">
+                            {{- range .Children }}
+                                {{- if .URL }}
+                                    {{- $active := $page.IsMenuCurrent $menuID . }}
+                                    <li class="nav-item{{ if $active }} active{{ end }}">
+                                        <span class="nav-dot" aria-hidden="true"></span>
+                                        <a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+                                    </li>
+                                {{- end }}
                             {{- end }}
-                        {{- end }}
-                    </ul>
+                        </ul>
+                    </details>
                 </li>
             {{- else if .URL }}
                 {{- /* 普通顶层链接（如首页） */}}

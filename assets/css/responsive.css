@@ -30,9 +30,9 @@
   }
   .nav-dot { display: none; }
 
-  /* "栏目"分组在移动端独占一行，子栏目横排 */
+  /* "栏目"分组在移动端独占一行，展开时子栏目横排 */
   .nav-group { flex-basis: 100%; margin-top: 1rem; }
-  .nav-children {
+  .nav-group-details[open] .nav-children {
     display: flex;
     gap: 1.5rem;
     flex-wrap: wrap;
