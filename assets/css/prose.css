@@ -13,6 +13,7 @@
 
 .prose { overflow-wrap: break-word; }  /* 长 URL/单词不撑破容器 */
 .prose p { margin: 1.75em 0; }         /* 段间距 ≥ 行高 */
+.prose > :first-child { margin-top: 0; }  /* 首行贴顶：首页简介第一行与栏目标题对齐 */
 
 .prose a { text-decoration: underline; text-underline-offset: 2px; }
 .prose a:hover { opacity: 0.8; }

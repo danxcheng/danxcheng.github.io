@@ -197,4 +197,7 @@
 /* 17px × 1.4 ≈ 24px，与 24px 图标等高，零偏移即垂直对齐 */
 .display-desktop { display: block; margin-top: 0; }
 .display-mobile { display: none; margin: 0; }
-.display-article { margin: 0 0 2.75rem; }  /* Mitchell md:mb-11 */
+.display-article {
+  font-size: 0.9375rem;   /* 15px：Mitchell 文章标题实测值，比站点标题(17px)小一档形成层级 */
+  margin: 0 0 2.75rem;    /* Mitchell md:mb-11 */
+}
