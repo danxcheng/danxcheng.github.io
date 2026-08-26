@@ -538,7 +538,7 @@ var createRenderer = (canvas, _config, alphaFn) => {
   let currentAlphaFn = alphaFn ?? null;
   const render = (school, _time) => {
     const { width, height } = canvas;
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = "rgba(0,0,0,0)";   /* 清屏改透明：保留页面纸感背景（原为白色会盖住米白底） */
     ctx.fillRect(0, 0, width, height);
     const sorted = [...school].sort((a, b) => a.size - b.size);
     for (const koi of sorted) {
