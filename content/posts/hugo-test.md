@@ -1,11 +1,9 @@
 +++
 # Hugo 渲染测试文档：验证主题对各类 Markdown 元素和内置短代码的渲染。
-# 草稿，预览用 hugo server -D；写好后删掉 draft 行即可发布。
 title = 'Hugo 渲染测试'
 date = '2026-08-25T13:00:00+08:00'
 description = '覆盖标题、列表、表格、代码块、引用、脚注与内置短代码的渲染测试。'
 images = []
-draft = true
 
 +++
 
