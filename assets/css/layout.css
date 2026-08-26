@@ -55,8 +55,9 @@
 
 .nav-menu { list-style: none; margin: 0; padding: 0; }
 
-/* "栏目"分组：默认收起，点击标签展开子栏目（details/summary） */
-.nav-group { margin-top: 2.5rem; }
+/* "栏目"分组：与"首页"同一层级（同字号/同颜色/同一节奏），
+   默认收起，点击标签展开子栏目（details/summary） */
+.nav-group { padding: 0.35rem 0; }   /* 与 .nav-item 一致的垂直节奏 */
 .nav-group-title {
   display: inline-flex;
   align-items: center;
@@ -65,14 +66,12 @@
   cursor: pointer;
   user-select: none;
   font-family: var(--font-display);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-size: 0.9rem;         /* 与 .nav-item a 一致 */
+  color: var(--text);        /* 与 .nav-item a 一致 */
 }
 .nav-group-title::-webkit-details-marker { display: none; }
 .nav-group-title:hover { color: var(--link); }
-.nav-group-caret { font-size: 0.6rem; transition: transform 0.15s; }
+.nav-group-caret { font-size: 0.7rem; transition: transform 0.15s; }
 .nav-group-details[open] .nav-group-caret { transform: rotate(90deg); }
 .nav-children { list-style: none; margin: 0.5rem 0 0; padding: 0; }
 
