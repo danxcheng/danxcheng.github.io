@@ -75,10 +75,10 @@
 
 .site-logo {
   display: inline-flex;
-  line-height: 0;              /* 去掉 SVG 底部留白 */
-  color: var(--link);
+  line-height: 0;              /* 去掉图片底部留白 */
   text-decoration: none;
 }
+.site-logo img { border-radius: 4px; display: block; }
 .site-logo:hover { text-decoration: none; opacity: 0.85; }
 
 /* 站点标题链接（正文列顶部与移动端侧栏头共用） */

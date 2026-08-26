@@ -1,0 +1,12 @@
+{
+  "name": "Danxcheng",
+  "short_name": "Danxcheng",
+  "description": "Danxcheng 的个人主页：技术笔记、生活记录与随想。",
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#f7f1e3",
+  "background_color": "#f7f1e3",
+  "display": "standalone"
+}

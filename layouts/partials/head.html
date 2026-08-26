@@ -15,12 +15,13 @@
     <link rel="alternate" type="application/rss+xml" title="{{ if not $.IsHome }}{{ $.Title }} - {{ end }}{{ site.Title }}" href="{{ .Permalink }}">
 {{ end }}
 
-{{- /* Favicon 预留：图标画好后放 static/ 并取消注释 */}}
-<!--
+{{- /* Favicon：主图在 static/（由 /home/xc/图片/image/Danxcheng.png 生成）。
+         各端优先顺序：ICO（老浏览器兜底）→ PNG（现代浏览器）→ apple-touch（iOS）。 */}}
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
--->
+<link rel="manifest" href="/site.webmanifest">
 
 {{- /* 社交分享卡片（Hugo 内置，自动从页面元数据生成） */}}
 {{ template "_internal/opengraph.html" . }}
