@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <!-- ============================================================
    static/404.html —— 根域 404（GitHub Pages 专用）
-   ------------------------------------------------------------
    GitHub Pages 对未知路径只认"站点根目录的 404.html"。
-   这里做一个轻量跳转页：0 秒后跳到 Hugo 生成的中文 404 页
-   （/zh/404.html，带完整主题）。真正负责显示的是那个页面。
+   这里带内联主题样式（两色 + 朱砂），即使不跳转也不会像"丢 CSS"；
+   同时 0 秒后跳到 Hugo 生成的中文 404 页（/zh/404.html，完整主题）。
    ============================================================ -->
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <title>404 - Danxcheng</title>
     <meta http-equiv="refresh" content="0; url=/zh/404.html">
+    <style>
+        :root {
+            --bg: #f7f1e3;
+            --text: #211d16;
+            --link: #b03a1e;
+            --muted: #6f675a;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Georgia, "Songti SC", "SimSun", serif;
+        }
+        div { text-align: center; }
+        .code { font-size: 1.2rem; letter-spacing: 0.2em; margin: 0 0 0.5rem; }
+        .msg { color: var(--muted); margin: 0 0 1rem; }
+        a { color: var(--link); }
+    </style>
 </head>
 <body>
-    <p>页面不存在，正在跳转…</p>
+    <div>
+        <p class="code">404</p>
+        <p class="msg">页面不存在，正在跳转…</p>
+        <p><a href="/">返回首页</a></p>
+    </div>
 </body>
 </html>

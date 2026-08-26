@@ -4,10 +4,10 @@
    保证跨页面切换时文字对齐。移动端改单列，见 responsive.css。 */
 .layout {
   display: grid;
-  grid-template-columns: 200px minmax(0, 620px) 200px;
+  grid-template-columns: var(--grid-side) minmax(0, var(--grid-content)) var(--grid-side);
   grid-template-rows: auto auto;
   justify-content: center;     /* 网格整体水平居中 → 正文列正好在视口正中 */
-  column-gap: 3rem;
+  column-gap: var(--column-gap);
   width: 100%;
   margin: 0 auto;              /* 仅水平居中，无垂直居中 */
   padding: 2rem 1.5rem 4rem;
@@ -34,11 +34,12 @@
 .rightbar {
   grid-column: 3;
   grid-row: 1;
-  width: 200px;
+  width: var(--grid-side);   /* 与左栏同宽，保持网格对称 → 正文始终居中 */
 }
 .rightbar-date {
   display: inline-block;
-  margin-top: calc(1.0625rem * 1.4 + 5rem);  /* 站点标题行高 + mb-20，与文章标题齐平 */
+  /* 与正文首行对齐：站点标题行高 + 标题留白，由 Token 派生 */
+  margin-top: calc(var(--title-size) * var(--title-line) + var(--title-gap));
   font-family: var(--font-display);
   font-size: 0.8rem;
   color: var(--muted);
@@ -63,14 +64,13 @@
 }
 
 /* 侧栏头：图标 + 移动端标题同一行，垂直居中。
-   margin-bottom: 5rem —— 与正文标题的 5rem 留白同节奏：
-   图标(24px) + 5rem ≈ 正文"站点标题行 + 5rem"，保证导航首个
-   条目（首页）与正文第一行（标题/简介）、右栏日期在同一水平线。 */
+   margin-bottom 由 calc 派生：让导航首项（首页）的文字行与正文首行
+   （标题/简介）、右栏日期处于同一水平线 —— 改 Token 即全站联动。 */
 .sidebar-head {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 5rem;
+  margin-bottom: calc(var(--title-size) * var(--title-line) + var(--title-gap) - var(--logo-size) - var(--nav-item-pad));
 }
 
 .site-logo {
@@ -110,18 +110,16 @@
   margin: 0.5rem 0 0;
   padding-left: 1.1rem;      /* 二级缩进，视觉上区分层级 */
 }
-/* 二级圆点左移 1.1rem，与一级圆点保持同一竖线 */
-.nav-children .nav-dot { left: -2rem; }
+/* 二级圆点左移（缩进 1.1rem + 圆点自身 -0.9rem），与一级圆点保持同一竖线 */
+.nav-children .nav-dot { left: calc(-0.9rem - 1.1rem); }
 
 /* 圆点绝对定位不占位，导航文字才和图标/"简体中文"左缘对齐 */
 .nav-item {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0.35rem 0;
+  padding: var(--nav-item-pad) 0;
 }
-/* 首个导航项（首页）去掉顶部内边距，文字行与正文标题行精确对齐 */
-.nav-item:first-child { padding-top: 0; }
 .nav-dot {
   position: absolute;
   left: -0.9rem;
@@ -194,15 +192,15 @@
   font-stretch: 115%;
   text-transform: uppercase;
   letter-spacing: 0.04em;      /* 克制字距（调研：过宽字距影响阅读速度） */
-  font-size: 1.0625rem;
-  line-height: 1.4;
-  margin: 0 0 5rem;            /* 与正文留白（Mitchell mb-20） */
+  font-size: var(--title-size);
+  line-height: var(--title-line);
+  margin: 0 0 var(--title-gap);  /* 与正文留白（Mitchell mb-20） */
   color: var(--text);
 }
 /* 17px × 1.4 ≈ 24px，与 24px 图标等高，零偏移即垂直对齐 */
 .display-desktop { display: block; margin-top: 0; }
 .display-mobile { display: none; margin: 0; }
 .display-article {
-  font-size: 0.9375rem;   /* 15px：Mitchell 文章标题实测值，比站点标题(17px)小一档形成层级 */
-  margin: 0 0 2.75rem;    /* Mitchell md:mb-11 */
+  font-size: var(--article-title-size);  /* 15px：比站点标题小一档形成层级 */
+  margin: 0 0 var(--article-title-gap);  /* Mitchell md:mb-11 */
 }

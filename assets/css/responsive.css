@@ -1,7 +1,7 @@
 /* 平板（<1024px）：隐藏右栏，正文列加宽 */
 @media (max-width: 1023px) {
   .rightbar { display: none; }
-  .layout { grid-template-columns: 200px minmax(0, 1fr); }
+  .layout { grid-template-columns: var(--grid-side) minmax(0, 1fr); }
 }
 
 /* 移动端（≤768px）：三栏改单列，侧栏变顶栏 */
@@ -31,7 +31,6 @@
   .sidebar, .content { margin: 0; }
 
   .sidebar-head { margin-bottom: 1.5rem; }   /* 移动端单列，无需与正文对齐 */
-  .nav-item:first-child { padding-top: 0.35rem; }  /* 还原移动端首个导航项的间距 */
 
   /* 导航横排可换行 */
   .nav-menu {
