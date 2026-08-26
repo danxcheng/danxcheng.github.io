@@ -30,6 +30,14 @@
   }
   .nav-dot { display: none; }
 
+  /* "栏目"分组在移动端独占一行，子栏目横排 */
+  .nav-group { flex-basis: 100%; margin-top: 1rem; }
+  .nav-children {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
   /* 语言列表内联（触摸设备无法悬停） */
   .lang-switch { margin-top: 1.25rem; }
   .lang-list { display: block; position: static; bottom: auto; margin-top: 0.5rem; }

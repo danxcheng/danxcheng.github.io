@@ -79,18 +79,28 @@ defaultContentLanguageInSubdir = true
       name = '首页'
       pageRef = '/'
       weight = 1
+
+    # "栏目"分组：无 pageRef = 纯分组标签，子项挂在它下面
+    [[languages.zh.menus.main]]
+      name = '栏目'
+      identifier = 'sections'
+      weight = 2
+
     [[languages.zh.menus.main]]
       name = '文章'
+      parent = 'sections'
       pageRef = '/posts'
-      weight = 2
+      weight = 1
     [[languages.zh.menus.main]]
       name = '小说'
+      parent = 'sections'
       pageRef = '/fiction'
-      weight = 3
+      weight = 2
     [[languages.zh.menus.main]]
       name = '测试'
+      parent = 'sections'
       pageRef = '/test'
-      weight = 4
+      weight = 3
 
   [languages.en]
     locale = 'en-US'
@@ -102,18 +112,28 @@ defaultContentLanguageInSubdir = true
       name = 'Home'
       pageRef = '/'
       weight = 1
+
+    # "Sections" group (no pageRef = label only)
+    [[languages.en.menus.main]]
+      name = 'Sections'
+      identifier = 'sections'
+      weight = 2
+
     [[languages.en.menus.main]]
       name = 'Posts'
+      parent = 'sections'
       pageRef = '/posts'
-      weight = 2
+      weight = 1
     [[languages.en.menus.main]]
       name = 'Fiction'
+      parent = 'sections'
       pageRef = '/fiction'
-      weight = 3
+      weight = 2
     [[languages.en.menus.main]]
       name = 'Test'
+      parent = 'sections'
       pageRef = '/test'
-      weight = 4
+      weight = 3
 
 # 图片处理缓存目录（官方部署指南建议：指向 Actions 缓存，加速重复构建）
 [caches]
