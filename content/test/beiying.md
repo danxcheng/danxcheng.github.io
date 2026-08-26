@@ -5,7 +5,6 @@
 title = '背影'
 date = '2026-08-25T12:00:00+08:00'
 description = '朱自清散文名篇，用作长文排版测试。'
-categories = ['测试']
 images = []
 
 +++

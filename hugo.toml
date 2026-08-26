@@ -83,6 +83,14 @@ defaultContentLanguageInSubdir = true
       name = '文章'
       pageRef = '/posts'
       weight = 2
+    [[languages.zh.menus.main]]
+      name = '小说'
+      pageRef = '/fiction'
+      weight = 3
+    [[languages.zh.menus.main]]
+      name = '测试'
+      pageRef = '/test'
+      weight = 4
 
   [languages.en]
     locale = 'en-US'
@@ -98,6 +106,14 @@ defaultContentLanguageInSubdir = true
       name = 'Posts'
       pageRef = '/posts'
       weight = 2
+    [[languages.en.menus.main]]
+      name = 'Fiction'
+      pageRef = '/fiction'
+      weight = 3
+    [[languages.en.menus.main]]
+      name = 'Test'
+      pageRef = '/test'
+      weight = 4
 
 # 图片处理缓存目录（官方部署指南建议：指向 Actions 缓存，加速重复构建）
 [caches]

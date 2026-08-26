@@ -4,7 +4,6 @@
 title = 'Hugo Rendering Test'
 date = '2026-08-25T13:00:00+08:00'
 description = 'Rendering test covering headings, lists, tables, code blocks, quotes, footnotes, and built-in shortcodes.'
-categories = ['test']
 images = []
 
 +++
