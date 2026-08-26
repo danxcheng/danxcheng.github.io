@@ -5,24 +5,27 @@
   {{ partial "head.html" . }}
 </head>
 <body>
+  {{- /* 三栏网格：左导航 | 正文（绝对居中）| 右日期栏；页脚独立在正文正下方（第 2 行中列） */}}
   <div class="layout">
     {{- /* 左列：图标 + 导航 + 语言切换（sidebar.html） */}}
     <aside class="sidebar">
       {{ partial "sidebar.html" . }}
     </aside>
-    {{- /* 中列：正文。桌面标题放正文列顶部，与左图标同一水平线（Mitchell 布局） */}}
+
+    {{- /* 中列：正文。站点标题在正文列顶部，与左图标同一水平线（Mitchell 布局） */}}
     <main class="content">
       <h1 class="display display-desktop"><a class="display-link" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a></h1>
       {{- /* 页面正文：home/section/single 等模板用 define "main" 注入 */}}
       {{ block "main" . }}{{ end }}
-      {{- /* 页脚在正文列内：只占正文宽，滚动到文末才见 */}}
-      <footer class="site-footer">
-        {{ partial "footer.html" . }}
-      </footer>
     </main>
-    {{- /* 右列：文章发布时间的辅助栏（无日期的页面自动隐藏，见 CSS :empty）。
-         注意 {{- -}} 修剪空白，否则 aside 里有换行就不算 :empty。 */}}
+
+    {{- /* 右列：文章发布时间的辅助栏（仅文章页有内容，其余为对称占位） */}}
     <aside class="rightbar">{{- partial "rightbar.html" . -}}</aside>
+
+    {{- /* 页脚：独立网格单元格，始终位于正文正下方，不横跨左右栏 */}}
+    <footer class="site-footer">
+      {{ partial "footer.html" . }}
+    </footer>
   </div>
 </body>
 </html>

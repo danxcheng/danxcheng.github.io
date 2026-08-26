@@ -1,32 +1,41 @@
-/* 三栏容器：左侧边栏 | 正文 | 右侧栏。
-   1024px = Mitchell 原版 max-w-5xl，正文列保持 ≈32 汉字行长。
-   margin:auto —— 短页面时在 body 里上下左右居中；内容超一屏后
-   上下 margin 归零贴顶，不裁切。移动端改单列，见 responsive.css。 */
+/* 三栏网格：左导航(200) | 正文(≤620) | 右日期(200) —— 左右对称，正文绝对居中。
+   页脚独立在第 2 行中列（正文正下方）。margin:auto 实现短页面整体垂直居中，
+   超一屏后上下 margin 归零贴顶。移动端改单列，见 responsive.css。 */
 .layout {
-  max-width: 1024px;
+  display: grid;
+  grid-template-columns: 200px minmax(0, 620px) 200px;
+  grid-template-rows: auto auto;
+  justify-content: center;     /* 网格整体水平居中 → 正文列正好在视口正中 */
+  column-gap: 3rem;
   width: 100%;
   margin: auto;
-  padding: 2rem 1.5rem 4rem;   /* 顶部呼吸空间（移动端 2rem） */
-  display: flex;
-  gap: 3rem;                   /* 列间距 */
-  align-items: flex-start;
-  min-height: calc(100vh - 6rem);  /* 短页面时容器至少填满一屏 */
+  padding: 2rem 1.5rem 4rem;
+  min-height: calc(100vh - 6rem);
 }
 
-/* 侧栏 sticky：长文滚动时随内容上移，到距顶 5rem 的呼吸位停住 */
+/* 左栏（第 1 列）：sticky —— 长文滚动时随内容上移，到距顶 5rem 呼吸位停住 */
 .sidebar {
+  grid-column: 1;
+  grid-row: 1;
   position: sticky;
   top: 5rem;
-  width: 200px;
-  flex-shrink: 0;
+  align-self: start;
 }
 
-/* 中列（正文）占剩余宽度；min-width:0 允许收缩（防长单词撑破） */
-.content { flex: 1; min-width: 0; }
+/* 中列（第 2 列）：正文。min-width:0 允许收缩（防长单词撑破） */
+.content {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
 
-/* 右列：文章发布时间，与文章标题同一水平线（标题在站点标题 + 5rem 留白之后） */
-.rightbar { width: 110px; flex-shrink: 0; }
-.rightbar:empty { display: none; }   /* 无日期页面（首页/分区）不占位 */
+/* 右栏（第 3 列）：文章发布时间，与文章标题同一水平线。
+   200px 对称占位（与左栏同宽），即使无日期也保持网格对称 → 正文始终居中 */
+.rightbar {
+  grid-column: 3;
+  grid-row: 1;
+  width: 200px;
+}
 .rightbar-date {
   display: inline-block;
   margin-top: calc(1.0625rem * 1.4 + 5rem);  /* 站点标题行高 + mb-20，与文章标题齐平 */
@@ -34,6 +43,13 @@
   font-size: 0.8rem;
   color: var(--muted);
   white-space: nowrap;
+}
+
+/* 页脚：独立单元格（第 2 行中列），始终在正文正下方，不横跨左右栏 */
+.site-footer {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 4rem;
 }
 
 .content-body { width: 100%; }

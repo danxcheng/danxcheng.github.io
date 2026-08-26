@@ -1,15 +1,23 @@
-/* 移动端（≤768px）：两栏改单列，侧栏变顶栏 */
+/* 平板（<1024px）：隐藏右栏，正文列加宽 */
+@media (max-width: 1023px) {
+  .rightbar { display: none; }
+  .layout { grid-template-columns: 200px minmax(0, 1fr); }
+}
+
+/* 移动端（≤768px）：三栏改单列，侧栏变顶栏 */
 @media (max-width: 768px) {
   body { font-size: 16px; }
 
   .layout {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 2rem;
     padding: 2rem 1.25rem 4rem;
   }
 
   .sidebar { position: static; top: auto; width: 100%; }
   .rightbar { display: none; }   /* 移动端无三栏，日期回到文章标题下方 */
+  .site-footer { grid-column: 1; }  /* 单列下页脚回第 1 列 */
+
   .content-body { width: 100%; }
   .display { margin: 0 0 2.5rem; }
 

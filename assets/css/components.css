@@ -79,9 +79,7 @@
   color: var(--muted);
 }
 
-/* 页脚（在右列内，自然流，滚动到文末才见） */
-.site-footer { margin-top: 4rem; }
-
+/* 页脚内容行（位置由 layout.css 的网格单元格控制） */
 .footer-inner {
   display: flex;
   justify-content: space-between;
