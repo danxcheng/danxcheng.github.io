@@ -1,13 +1,14 @@
-/* 两栏容器：max-width 880px 收紧行长（≈32 汉字，调研建议 30-45 汉字）。
+/* 三栏容器：左侧边栏 | 正文 | 右侧栏。
+   1024px = Mitchell 原版 max-w-5xl，正文列保持 ≈32 汉字行长。
    margin:auto —— 短页面时在 body 里上下左右居中；内容超一屏后
    上下 margin 归零贴顶，不裁切。移动端改单列，见 responsive.css。 */
 .layout {
-  max-width: 880px;
+  max-width: 1024px;
   width: 100%;
   margin: auto;
   padding: 2rem 1.5rem 4rem;   /* 顶部呼吸空间（移动端 2rem） */
   display: flex;
-  gap: 3rem;                   /* 侧栏与正文间距 */
+  gap: 3rem;                   /* 列间距 */
   align-items: flex-start;
   min-height: calc(100vh - 6rem);  /* 短页面时容器至少填满一屏 */
 }
@@ -20,8 +21,20 @@
   flex-shrink: 0;
 }
 
-/* 右列占剩余宽度；min-width:0 允许收缩（防长单词撑破） */
+/* 中列（正文）占剩余宽度；min-width:0 允许收缩（防长单词撑破） */
 .content { flex: 1; min-width: 0; }
+
+/* 右列：文章发布时间，与文章标题同一水平线（标题在站点标题 + 5rem 留白之后） */
+.rightbar { width: 110px; flex-shrink: 0; }
+.rightbar:empty { display: none; }   /* 无日期页面（首页/分区）不占位 */
+.rightbar-date {
+  display: inline-block;
+  margin-top: calc(1.0625rem * 1.4 + 5rem);  /* 站点标题行高 + mb-20，与文章标题齐平 */
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
 
 .content-body { width: 100%; }
 
@@ -73,7 +86,13 @@
 .nav-group-title:hover { color: var(--link); }
 .nav-group-caret { font-size: 0.7rem; transition: transform 0.15s; }
 .nav-group-details[open] .nav-group-caret { transform: rotate(90deg); }
-.nav-children { list-style: none; margin: 0.5rem 0 0; padding: 0; }
+.nav-children {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;      /* 二级缩进，视觉上区分层级 */
+}
+/* 二级圆点左移 1.1rem，与一级圆点保持同一竖线 */
+.nav-children .nav-dot { left: -2rem; }
 
 /* 圆点绝对定位不占位，导航文字才和图标/"简体中文"左缘对齐 */
 .nav-item {
