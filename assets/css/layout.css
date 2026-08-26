@@ -62,12 +62,15 @@
   .layout { padding-top: 8rem; }
 }
 
-/* 侧栏头：图标 + 移动端标题同一行，垂直居中 */
+/* 侧栏头：图标 + 移动端标题同一行，垂直居中。
+   margin-bottom: 5rem —— 与正文标题的 5rem 留白同节奏：
+   图标(24px) + 5rem ≈ 正文"站点标题行 + 5rem"，保证导航首个
+   条目（首页）与正文第一行（标题/简介）、右栏日期在同一水平线。 */
 .sidebar-head {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 }
 
 .site-logo {
@@ -117,6 +120,8 @@
   align-items: center;
   padding: 0.35rem 0;
 }
+/* 首个导航项（首页）去掉顶部内边距，文字行与正文标题行精确对齐 */
+.nav-item:first-child { padding-top: 0; }
 .nav-dot {
   position: absolute;
   left: -0.9rem;
