@@ -28,6 +28,21 @@
     </footer>
   </div>
 
+  {{- /* 锦鲤背景（koi-pond）：自托管 /background/koi-pond.js，仅桌面端。
+       锦鲤群游、绕鼠标转、点击散开；alphaFn 控制透明度（0.6 = 柔和背景鱼）*/}}
+  <canvas id="pond" aria-hidden="true"></canvas>
+  <script>
+    if (screen.width >= 768) {
+      import("/background/koi-pond.js").then(function (m) {
+        var pond = m.createKoiPond(document.getElementById("pond"), {
+          count: 10,
+          alphaFn: function () { return 0.6; }
+        });
+        pond.start();
+      });
+    }
+  </script>
+
   {{- /* 粒子背景（particles.js）：自托管 /background/，仅桌面端加载 */}}
   <div id="particles-js" aria-hidden="true"></div>
   <script src="/background/particles.js" defer></script>
