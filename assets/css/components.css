@@ -89,6 +89,19 @@
   color: var(--muted);
 }
 
+/* ----- 看板娘（Live2D）适配 ----- */
+/* 切换按钮：默认橙色 → 主题朱砂 */
+#waifu-toggle { background-color: var(--link); }
+
+/* 暗色模式：气泡加深融入暗色主题 */
+@media (prefers-color-scheme: dark) {
+  #waifu-tips {
+    background-color: rgba(38, 32, 25, 0.88);
+    border-color: var(--border);
+    color: var(--text);
+  }
+}
+
 .footer-links { display: flex; align-items: center; gap: 0.9rem; }
 .footer-links a { color: var(--muted); display: inline-flex; align-items: center; }
 .footer-links a:hover { color: var(--link); }
