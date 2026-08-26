@@ -3,6 +3,7 @@
 
 .post-item {
   display: flex;
+  justify-content: space-between;  /* 标题左、日期右 */
   align-items: baseline;
   gap: 1.25rem;
   padding: 0.8rem 0;

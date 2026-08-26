@@ -1,6 +1,7 @@
 /* 三栏网格：左导航(200) | 正文(≤620) | 右日期(200) —— 左右对称，正文绝对居中。
-   页脚独立在第 2 行中列（正文正下方）。margin:auto 实现短页面整体垂直居中，
-   超一屏后上下 margin 归零贴顶。移动端改单列，见 responsive.css。 */
+   页脚独立在第 2 行中列（正文正下方）。
+   不做整体垂直居中：所有页面的首行（标题/简介）固定在同一个顶部位置，
+   保证跨页面切换时文字对齐。移动端改单列，见 responsive.css。 */
 .layout {
   display: grid;
   grid-template-columns: 200px minmax(0, 620px) 200px;
@@ -8,9 +9,8 @@
   justify-content: center;     /* 网格整体水平居中 → 正文列正好在视口正中 */
   column-gap: 3rem;
   width: 100%;
-  margin: auto;
+  margin: 0 auto;              /* 仅水平居中，无垂直居中 */
   padding: 2rem 1.5rem 4rem;
-  min-height: calc(100vh - 6rem);
 }
 
 /* 左栏（第 1 列）：sticky —— 长文滚动时随内容上移，到距顶 5rem 呼吸位停住 */
@@ -56,10 +56,10 @@
 
 /* md/lg 加大顶部呼吸空间（Mitchell：md:mt-20 / lg:mt-32） */
 @media (min-width: 768px) {
-  .layout { padding-top: 5rem; min-height: calc(100vh - 9rem); }
+  .layout { padding-top: 5rem; }
 }
 @media (min-width: 1024px) {
-  .layout { padding-top: 8rem; min-height: calc(100vh - 12rem); }
+  .layout { padding-top: 8rem; }
 }
 
 /* 侧栏头：图标 + 移动端标题同一行，垂直居中 */

@@ -14,9 +14,11 @@
     padding: 2rem 1.25rem 4rem;
   }
 
+  /* 单列下所有网格项回到第 1 列、按文档序排列（否则正文会掉进隐式列） */
+  .sidebar, .content, .rightbar, .site-footer { grid-column: 1; grid-row: auto; }
+
   .sidebar { position: static; top: auto; width: 100%; }
   .rightbar { display: none; }   /* 移动端无三栏，日期回到文章标题下方 */
-  .site-footer { grid-column: 1; }  /* 单列下页脚回第 1 列 */
 
   .content-body { width: 100%; }
   .display { margin: 0 0 2.5rem; }
