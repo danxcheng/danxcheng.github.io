@@ -28,6 +28,19 @@
     </footer>
   </div>
 
+  {{- /* 粒子背景（particles.js）：自托管 /background/，仅桌面端加载 */}}
+  <div id="particles-js" aria-hidden="true"></div>
+  <script src="/background/particles.js" defer></script>
+  <script>
+    if (screen.width >= 768) {
+      window.addEventListener("DOMContentLoaded", function () {
+        if (typeof particlesJS === "function") {
+          particlesJS.load("particles-js", "/background/particlesjs-config.json");
+        }
+      });
+    }
+  </script>
+
   {{- /* ============================================================
        看板娘（Live2D）—— 仅桌面端加载，资源全部自托管 /live2d/
        模型：仙狐（Cubism 3 / moc3，自 Eikanya 模型库，个人使用）
