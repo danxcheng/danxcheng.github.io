@@ -1,8 +1,8 @@
-{{- /* 右侧栏：仅文章页（Kind = "page"）显示发布时间，与文章标题齐平。
-         首页/分区页（Hugo 会自动补文件修改时间做 date）不显示，
-         输出为空则 aside 被 CSS :empty 隐藏。 */}}
+{{- /* 右栏：文章发布时间 + 底部"组件"设置入口。
+         仅文章页有日期，其余页面右栏保持对称占位；设置入口始终存在。 */}}
 {{- if eq .Kind "page" }}
     {{- with .Date }}
         <time class="rightbar-date" datetime="{{ .Format "2006-01-02" }}">{{ .Format "2006/01/02" }}</time>
     {{- end }}
 {{- end }}
+<button class="settings-entry" type="button" data-open-settings>&#9881; 组件</button>

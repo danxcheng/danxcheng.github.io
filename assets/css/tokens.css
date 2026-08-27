@@ -46,3 +46,27 @@
     --code-bg: #262019;
   }
 }
+
+/* 手动主题覆盖（设置面板选择，优先级高于系统偏好；data-theme 缺省时回落系统） */
+:root[data-theme="light"] {
+  --bg: #f7f1e3;
+  --bg-soft: #efe7d4;
+  --text: #211d16;
+  --muted: #6f675a;
+  --link: #b03a1e;
+  --link-hover: #8f2d15;
+  --accent: #c4483a;
+  --border: #e3d9c2;
+  --code-bg: #efe7d4;
+}
+:root[data-theme="dark"] {
+  --bg: #1a1712;
+  --bg-soft: #262019;
+  --text: #e9e2d3;
+  --muted: #a39a87;
+  --link: #e08a5f;
+  --link-hover: #f0a47e;
+  --accent: #f2a48f;
+  --border: #3a332a;
+  --code-bg: #262019;
+}

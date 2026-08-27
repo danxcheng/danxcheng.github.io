@@ -15,9 +15,6 @@ body {
   display: flex;                   /* 纵向 flex + 下方 .layout margin:auto */
   flex-direction: column;          /* 实现短页面整体垂直居中 */
   background-color: var(--bg);     /* 两色：米白暖底 */
-  /* 羊皮纸噪点：极轻的 SVG 颗粒纹理（feTurbulence 噪点，纯 CSS 零依赖）。
-     调强度改最后 opacity（0.045 = 极轻；想要更明显可加到 0.06-0.08）。 */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
   color: var(--text);
   font-family: var(--font-body);
   font-size: 18px;                 /* 舒适区字号（调研：Rello 2016 等） */
@@ -29,6 +26,20 @@ a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 img, video, iframe { max-width: 100%; }
+
+/* 羊皮纸噪点：独立伪元素层（fixed 铺满视口）。
+   强度由 --grain-opacity 控制（默认 0.045 极轻；设置面板可调）；
+   开关：body.no-grain 时归零。放在内容之后（z-index:-1），不挡交互。 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: var(--grain-opacity, 0.045);
+}
+body.no-grain::before { opacity: 0; }
 
 /* 键盘 Tab 聚焦才显示焦点环，鼠标点击不显示 */
 a:focus-visible {

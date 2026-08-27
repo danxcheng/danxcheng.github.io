@@ -99,6 +99,170 @@
   z-index: -1;
 }
 
+/* ============================================================
+   组件设置面板（原生 <dialog>）
+   ============================================================ */
+
+/* 右栏底部的"组件"入口 */
+.settings-entry {
+  margin-top: 3rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.settings-entry:hover { color: var(--link); border-color: var(--link); }
+
+/* 弹窗本体：纸面质感卡片 */
+#settings-dialog {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 0;
+  max-width: 380px;
+  width: calc(100vw - 3rem);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+#settings-dialog::backdrop { background: rgba(20, 16, 10, 0.45); }
+
+.settings-panel { padding: 1rem 1.25rem 1.25rem; font-family: var(--font-body); }
+
+.settings-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+.settings-head h2 { margin: 0; font-size: 1rem; font-family: var(--font-display); letter-spacing: 0.03em; }
+.settings-close {
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+}
+.settings-close:hover { color: var(--link); }
+
+.settings-view h3 { margin: 0.25rem 0 0.75rem; font-size: 0.95rem; font-family: var(--font-display); }
+
+/* 主面板行：名称 + 开关 + 调整按钮 */
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.settings-row:last-of-type { border-bottom: none; }
+.settings-name { flex: 1; font-size: 0.9rem; }
+
+/* 开关（switch） */
+.settings-switch { position: relative; display: inline-block; width: 36px; height: 20px; flex-shrink: 0; }
+.settings-switch input { opacity: 0; width: 0; height: 0; }
+.settings-switch span {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border-radius: 999px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.settings-switch span::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg);
+  transition: transform 0.2s;
+}
+.settings-switch input:checked + span { background: var(--link); }
+.settings-switch input:checked + span::after { transform: translateX(16px); }
+
+/* 小按钮 */
+.settings-btn {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.78rem;
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+}
+.settings-btn:hover { color: var(--link); border-color: var(--link); }
+
+/* 参数行：滑块 + 数字 */
+.settings-param {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+  font-size: 0.85rem;
+}
+.settings-param > :first-child { flex: 1; }
+.settings-param input[type="range"] { flex: 1; accent-color: var(--link); }
+.settings-param input[type="number"] {
+  width: 4rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 0.2rem 0.4rem;
+  font-size: 0.85rem;
+}
+
+/* 分段选择（主题：浅/深/自动） */
+.settings-seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.settings-seg button {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.78rem;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.settings-seg button + button { border-left: 1px solid var(--border); }
+.settings-seg button.active { background: var(--link); color: var(--bg); }
+
+/* 侧栏底部的主题切换（与语言切换并列） */
+.settings-seg-side { margin-top: 0.75rem; }
+
+/* 面板底部操作区 */
+.settings-foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.9rem;
+}
+
+/* 移动端浮动设置按钮（右栏窄屏隐藏时兜底） */
+#settings-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+#settings-fab:hover { color: var(--link); border-color: var(--link); }
+@media (min-width: 1024px) { #settings-fab { display: none; } }
+
 /* ----- 粒子背景（particles.js）----- */
 /* 画布固定在视口、置于内容之后（z-index:-1），不挡阅读 */
 .particles-js-canvas-el {

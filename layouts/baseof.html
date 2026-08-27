@@ -7,7 +7,7 @@
 <body>
   {{- /* 三栏网格：左导航 | 正文（绝对居中）| 右日期栏；页脚独立在正文正下方（第 2 行中列） */}}
   <div class="layout">
-    {{- /* 左列：图标 + 导航 + 语言切换（sidebar.html） */}}
+    {{- /* 左列：图标 + 导航 + 语言/主题（sidebar.html） */}}
     <aside class="sidebar">
       {{ partial "sidebar.html" . }}
     </aside>
@@ -19,7 +19,7 @@
       {{ block "main" . }}{{ end }}
     </main>
 
-    {{- /* 右列：文章发布时间的辅助栏（仅文章页有内容，其余为对称占位） */}}
+    {{- /* 右列：日期 + 底部"组件"设置入口（rightbar.html） */}}
     <aside class="rightbar">{{- partial "rightbar.html" . -}}</aside>
 
     {{- /* 页脚：独立网格单元格，始终位于正文正下方，不横跨左右栏 */}}
@@ -28,33 +28,11 @@
     </footer>
   </div>
 
-  {{- /* 锦鲤背景（koi-pond）：经 assets 管线输出（带内容指纹，避免浏览器缓存旧版白底）。
-       锦鲤群游、绕鼠标转、点击散开；alphaFn 控制透明度（0.6 = 柔和背景鱼）*/}}
+  {{- /* 背景组件容器：由设置系统（/js/settings.js）按 localStorage 决定启动与否 */}}
   <canvas id="pond" aria-hidden="true"></canvas>
-  <script>
-    if (screen.width >= 768) {
-      import("{{ (resources.Get "background/koi-pond.js" | fingerprint).RelPermalink }}").then(function (m) {
-        var pond = m.createKoiPond(document.getElementById("pond"), {
-          count: 10,
-          alphaFn: function () { return 0.6; }
-        });
-        pond.start();
-      });
-    }
-  </script>
-
-  {{- /* 粒子背景（particles.js）：自托管 /background/，仅桌面端加载 */}}
   <div id="particles-js" aria-hidden="true"></div>
+
   <script src="/background/particles.js" defer></script>
-  <script>
-    if (screen.width >= 768) {
-      window.addEventListener("DOMContentLoaded", function () {
-        if (typeof particlesJS === "function") {
-          particlesJS.load("particles-js", "{{ (resources.Get "background/particlesjs-config.json" | fingerprint).RelPermalink }}");
-        }
-      });
-    }
-  </script>
 
   {{- /* ============================================================
        看板娘（Live2D）—— 仅桌面端加载，资源全部自托管 /live2d/
@@ -62,8 +40,7 @@
        加载顺序：waifu.css → Cubism Core → live2d-sdk（提供 window.live2d，
                  拼接"模型名.model3.json"加载 moc3）→ waifu-tips.js → 初始化
        换模型：static/live2d/model/<名字>/ 放 model3.json + .moc3 + 纹理，
-                 model_list.json 里填目录名（注意：只支持 moc3 新格式，
-                 老式 .moc 模型需经典 Cubism 2.1 组件，暂不可用）
+                 model_list.json 里填目录名（只支持 moc3 新格式）
        ============================================================ */}}
   <link rel="stylesheet" href="/live2d/waifu.css">
   <script src="/live2d/live2dcubismcore.js" defer></script>
@@ -86,5 +63,113 @@
       });
     }
   </script>
+
+  {{- /* 设置系统用的运行时配置（koi 库指纹地址等） */}}
+  <script>
+    window.SiteConfig = {
+      koiUrl: "{{ (resources.Get "background/koi-pond.js" | fingerprint).RelPermalink }}"
+    };
+  </script>
+
+  {{- /* ============ 组件设置弹窗（原生 <dialog>） ============ */}}
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <div class="settings-panel">
+      <div class="settings-head">
+        <h2 id="settings-title">组件设置</h2>
+        <button class="settings-close" type="button" data-action="close" aria-label="关闭">&times;</button>
+      </div>
+
+      {{- /* 主视图：各组件开关 */}}
+      <div data-view="main" class="settings-view">
+        <div class="settings-row">
+          <span class="settings-name">粒子（点线）</span>
+          <label class="settings-switch"><input type="checkbox" data-toggle="particles"><span></span></label>
+          <button class="settings-btn" type="button" data-detail="particles">调整</button>
+        </div>
+        <div class="settings-row">
+          <span class="settings-name">锦鲤</span>
+          <label class="settings-switch"><input type="checkbox" data-toggle="koi"><span></span></label>
+          <button class="settings-btn" type="button" data-detail="koi">调整</button>
+        </div>
+        <div class="settings-row">
+          <span class="settings-name">纸噪点</span>
+          <label class="settings-switch"><input type="checkbox" data-toggle="grain"><span></span></label>
+          <button class="settings-btn" type="button" data-detail="grain">调整</button>
+        </div>
+        <div class="settings-row">
+          <span class="settings-name">主题</span>
+          <div class="settings-seg" data-seg="theme">
+            <button type="button" data-theme="light">浅</button>
+            <button type="button" data-theme="dark">深</button>
+            <button type="button" data-theme="auto">自动</button>
+          </div>
+        </div>
+        <div class="settings-foot">
+          <button class="settings-btn" type="button" data-action="reset-all">全部重置</button>
+        </div>
+      </div>
+
+      {{- /* 粒子详情 */}}
+      <div data-view="particles" class="settings-view" hidden>
+        <h3>粒子设置</h3>
+        <label class="settings-param">数量
+          <input type="range" min="10" max="200" step="1" data-range="particles.count">
+          <input type="number" min="10" max="200" data-num="particles.count">
+        </label>
+        <label class="settings-param">大小
+          <input type="range" min="1" max="10" step="1" data-range="particles.size">
+          <input type="number" min="1" max="10" data-num="particles.size">
+        </label>
+        <label class="settings-param">速度
+          <input type="range" min="1" max="8" step="1" data-range="particles.speed">
+          <input type="number" min="1" max="8" data-num="particles.speed">
+        </label>
+        <label class="settings-param">连线距离
+          <input type="range" min="40" max="200" step="10" data-range="particles.linkDistance">
+          <input type="number" min="40" max="200" data-num="particles.linkDistance">
+        </label>
+        <div class="settings-foot">
+          <button class="settings-btn" type="button" data-action="back">返回</button>
+          <button class="settings-btn" type="button" data-action="reset" data-reset="particles">重置</button>
+        </div>
+      </div>
+
+      {{- /* 锦鲤详情 */}}
+      <div data-view="koi" class="settings-view" hidden>
+        <h3>锦鲤设置</h3>
+        <label class="settings-param">数量
+          <input type="range" min="3" max="30" step="1" data-range="koi.count">
+          <input type="number" min="3" max="30" data-num="koi.count">
+        </label>
+        <label class="settings-param">透明度（%）
+          <input type="range" min="10" max="100" step="5" data-range="koi.alpha">
+          <input type="number" min="10" max="100" data-num="koi.alpha">
+        </label>
+        <div class="settings-foot">
+          <button class="settings-btn" type="button" data-action="back">返回</button>
+          <button class="settings-btn" type="button" data-action="reset" data-reset="koi">重置</button>
+        </div>
+      </div>
+
+      {{- /* 噪点详情 */}}
+      <div data-view="grain" class="settings-view" hidden>
+        <h3>纸噪点设置</h3>
+        <label class="settings-param">强度（%）
+          <input type="range" min="0" max="10" step="0.5" data-range="grain.opacity">
+          <input type="number" min="0" max="10" step="0.5" data-num="grain.opacity">
+        </label>
+        <div class="settings-foot">
+          <button class="settings-btn" type="button" data-action="back">返回</button>
+          <button class="settings-btn" type="button" data-action="reset" data-reset="grain">重置</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  {{- /* 移动端浮动设置按钮（右栏在窄屏隐藏时兜底） */}}
+  <button id="settings-fab" type="button" aria-label="组件设置" title="组件设置">&#9881;</button>
+
+  {{- /* 组件设置系统（localStorage 持久化，先读设置再启动组件） */}}
+  <script src="/js/settings.js" defer></script>
 </body>
 </html>

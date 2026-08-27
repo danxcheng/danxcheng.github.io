@@ -1,4 +1,4 @@
-{{- /* 侧栏：图标 + 移动端标题一行；下方导航（menu.html 输出完整 ul）+ 语言切换。*/}}
+{{- /* 侧栏：图标 + 移动端标题一行；下方导航（menu.html 输出完整 ul）+ 语言/主题偏好。*/}}
 <div class="sidebar-head">
     {{ partial "logo.html" . }}
     <h1 class="display display-mobile"><a class="display-link" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a></h1>
@@ -6,4 +6,10 @@
 <nav class="nav" aria-label="{{ i18n "nav" }}">
     {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
     {{ partial "lang-switch.html" . }}
+    {{- /* 主题切换：与语言切换并列（都是站点级偏好），三态：浅/深/跟随系统 */}}
+    <div class="settings-seg settings-seg-side" data-seg="theme" aria-label="主题">
+        <button type="button" data-theme="light">浅</button>
+        <button type="button" data-theme="dark">深</button>
+        <button type="button" data-theme="auto">自动</button>
+    </div>
 </nav>
