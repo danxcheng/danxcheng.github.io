@@ -28,12 +28,12 @@
     </footer>
   </div>
 
-  {{- /* 锦鲤背景（koi-pond）：自托管 /background/koi-pond.js，仅桌面端。
+  {{- /* 锦鲤背景（koi-pond）：经 assets 管线输出（带内容指纹，避免浏览器缓存旧版白底）。
        锦鲤群游、绕鼠标转、点击散开；alphaFn 控制透明度（0.6 = 柔和背景鱼）*/}}
   <canvas id="pond" aria-hidden="true"></canvas>
   <script>
     if (screen.width >= 768) {
-      import("/background/koi-pond.js").then(function (m) {
+      import("{{ (resources.Get "background/koi-pond.js" | fingerprint).RelPermalink }}").then(function (m) {
         var pond = m.createKoiPond(document.getElementById("pond"), {
           count: 10,
           alphaFn: function () { return 0.6; }
@@ -50,7 +50,7 @@
     if (screen.width >= 768) {
       window.addEventListener("DOMContentLoaded", function () {
         if (typeof particlesJS === "function") {
-          particlesJS.load("particles-js", "/background/particlesjs-config.json");
+          particlesJS.load("particles-js", "{{ (resources.Get "background/particlesjs-config.json" | fingerprint).RelPermalink }}");
         }
       });
     }
