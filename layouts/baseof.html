@@ -203,7 +203,7 @@
   <button id="settings-fab" type="button" aria-label="组件设置" title="组件设置">&#9881;</button>
 
   {{- /* 组件设置系统（localStorage 持久化，先读设置再启动组件） */}}
-  <script src="/js/settings.js" defer></script>
+  <script src="{{ with resources.Get "js/settings.js" }}{{ (. | fingerprint).RelPermalink }}{{ end }}" defer></script>
 
   {{- /* 音乐播放器（原生 audio，自托管，无外部依赖） */}}
   <audio id="music-audio" preload="none" loop>
@@ -217,6 +217,6 @@
       <span class="music-track" aria-hidden="true"><span class="music-track-fill"></span></span>
     </span>
   </div>
-  <script src="/js/music-player.js" defer></script>
+  <script src="{{ with resources.Get "js/music-player.js" }}{{ (. | fingerprint).RelPermalink }}{{ end }}" defer></script>
 </body>
 </html>
