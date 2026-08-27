@@ -163,7 +163,10 @@
      "koi.count", "koi.alpha", "grain.opacity"].forEach(syncParamInputs);
   }
   function switchView(name) {
-    $$(".settings-view", dialog).forEach(function (v) { v.hidden = v.dataset.view !== name; });
+    $$(".settings-view", dialog).forEach(function (v) {
+      if (v.dataset.view === name) v.hidden = false;
+      else v.hidden = true;   // 显式隐藏其它视图，防止上一级残留
+    });
   }
   function syncDetail(name) {
     if (name === "particles") ["particles.count", "particles.size", "particles.speed", "particles.linkDistance"].forEach(syncParamInputs);
