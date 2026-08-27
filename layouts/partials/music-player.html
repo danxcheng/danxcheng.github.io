@@ -1,0 +1,13 @@
+  {{- /* 音乐播放器（原生 audio，自托管，无外部依赖） */}}
+  <audio id="music-audio" preload="none" aria-hidden="true"></audio>
+  <div id="music-player" class="music-player" aria-label="{{ i18n "music_title" }}">
+    <button id="music-prev" class="music-prev" type="button" aria-label="{{ i18n "music_prev" }}">⏮</button>
+    <button id="music-toggle" class="music-toggle" type="button" aria-label="{{ i18n "music_play_pause" }}">▶</button>
+    <button id="music-next" class="music-next" type="button" aria-label="{{ i18n "music_next" }}">⏭</button>
+    <button id="music-shuffle" class="music-shuffle" type="button" aria-label="{{ i18n "music_shuffle" }}">🔀</button>
+    <span class="music-info">
+      <span id="music-title" class="music-title">{{ i18n "music_title" }}</span>
+      <span class="music-track" aria-hidden="true"><span class="music-track-fill"></span></span>
+    </span>
+  </div>
+  <script src="{{ with resources.Get "js/music-player.js" }}{{ (. | fingerprint).RelPermalink }}{{ end }}" defer></script>

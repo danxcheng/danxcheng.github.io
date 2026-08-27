@@ -1,0 +1,12 @@
+  {{- /* 设置系统用的运行时配置（koi 库指纹地址等） */}}
+  <script>
+    window.SiteConfig = {
+      koiUrl: "{{ with resources.Get "background/koi-pond.js" }}{{ (. | fingerprint).RelPermalink }}{{ end }}",
+      /* 播放器曲目表（名称走 i18n，mp3 必须存在，ogg 可选兜底） */
+      tracks: [
+        { name: "{{ i18n "track_ode_to_joy" }}", mp3: "/audio/ode-to-joy.mp3", ogg: "/audio/ode-to-joy.ogg" },
+        { name: "{{ i18n "track_fur_elise" }}", mp3: "/audio/fur-elise.mp3", ogg: "/audio/fur-elise.ogg" },
+        { name: "{{ i18n "track_canon" }}", mp3: "/audio/canon-in-d.mp3", ogg: "" }
+      ]
+    };
+  </script>

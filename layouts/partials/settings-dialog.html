@@ -1,0 +1,108 @@
+  {{- /* ============ 组件设置弹窗（原生 <dialog>） ============ */}}
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <div class="settings-panel" data-view="main">
+      <div class="settings-head">
+        <h2 id="settings-title">{{ i18n "settings_title" }}</h2>
+        <button class="settings-close" type="button" data-action="close" aria-label="{{ i18n "settings_close" }}">&times;</button>
+      </div>
+
+      {{- /* 主视图：各组件开关 */}}
+      <div data-view="main" class="settings-view">
+        <div class="settings-row">
+          <span class="settings-name">{{ i18n "settings_particles" }}</span>
+          <span class="settings-controls">
+            <label class="settings-switch"><input type="checkbox" data-toggle="particles"><span></span></label>
+            <button class="settings-btn" type="button" data-detail="particles">{{ i18n "settings_adjust" }}</button>
+          </span>
+        </div>
+        <div class="settings-row">
+          <span class="settings-name">{{ i18n "settings_koi" }}</span>
+          <span class="settings-controls">
+            <label class="settings-switch"><input type="checkbox" data-toggle="koi"><span></span></label>
+            <button class="settings-btn" type="button" data-detail="koi">{{ i18n "settings_adjust" }}</button>
+          </span>
+        </div>
+        <div class="settings-row">
+          <span class="settings-name">{{ i18n "settings_grain" }}</span>
+          <span class="settings-controls">
+            <label class="settings-switch"><input type="checkbox" data-toggle="grain"><span></span></label>
+            <button class="settings-btn" type="button" data-detail="grain">{{ i18n "settings_adjust" }}</button>
+          </span>
+        </div>
+        <div class="settings-row">
+          <span class="settings-name">{{ i18n "settings_theme" }}</span>
+          <span class="settings-controls">
+            <div class="settings-seg" data-seg="theme">
+              <button type="button" data-theme="light">{{ i18n "settings_light" }}</button>
+              <button type="button" data-theme="dark">{{ i18n "settings_dark" }}</button>
+              <button type="button" data-theme="auto">{{ i18n "settings_auto" }}</button>
+            </div>
+          </span>
+        </div>
+        <div class="settings-foot">
+          <button class="settings-btn" type="button" data-action="reset-all">{{ i18n "settings_reset_all" }}</button>
+        </div>
+      </div>
+
+      {{- /* 粒子详情 */}}
+      <div data-view="particles" class="settings-view">
+        <h3>{{ i18n "settings_particles_title" }}</h3>
+        <div class="settings-param"><span>{{ i18n "settings_count" }}</span>
+          <input type="range" min="10" max="200" step="1" data-range="particles.count">
+          <input type="number" min="10" max="200" data-num="particles.count">
+        </div>
+        <div class="settings-param"><span>{{ i18n "settings_size" }}</span>
+          <input type="range" min="1" max="10" step="1" data-range="particles.size">
+          <input type="number" min="1" max="10" data-num="particles.size">
+        </div>
+        <div class="settings-param"><span>{{ i18n "settings_speed" }}</span>
+          <input type="range" min="1" max="8" step="1" data-range="particles.speed">
+          <input type="number" min="1" max="8" data-num="particles.speed">
+        </div>
+        <div class="settings-param"><span>{{ i18n "settings_link_distance" }}</span>
+          <input type="range" min="40" max="200" step="10" data-range="particles.linkDistance">
+          <input type="number" min="40" max="200" data-num="particles.linkDistance">
+        </div>
+        <div class="settings-foot">
+          <button class="settings-btn" type="button" data-action="back">{{ i18n "settings_back" }}</button>
+          <button class="settings-btn" type="button" data-action="reset" data-reset="particles">{{ i18n "settings_reset" }}</button>
+        </div>
+      </div>
+
+      {{- /* 锦鲤详情 */}}
+      <div data-view="koi" class="settings-view">
+        <h3>{{ i18n "settings_koi_title" }}</h3>
+        <div class="settings-param"><span>{{ i18n "settings_count" }}</span>
+          <input type="range" min="3" max="30" step="1" data-range="koi.count">
+          <input type="number" min="3" max="30" data-num="koi.count">
+        </div>
+        <div class="settings-param"><span>{{ i18n "settings_alpha" }}</span>
+          <input type="range" min="10" max="100" step="5" data-range="koi.alpha">
+          <input type="number" min="10" max="100" data-num="koi.alpha">
+        </div>
+        <div class="settings-foot">
+          <button class="settings-btn" type="button" data-action="back">{{ i18n "settings_back" }}</button>
+          <button class="settings-btn" type="button" data-action="reset" data-reset="koi">{{ i18n "settings_reset" }}</button>
+        </div>
+      </div>
+
+      {{- /* 噪点详情 */}}
+      <div data-view="grain" class="settings-view">
+        <h3>{{ i18n "settings_grain_title" }}</h3>
+        <div class="settings-param"><span>{{ i18n "settings_intensity" }}</span>
+          <input type="range" min="0" max="10" step="0.5" data-range="grain.opacity">
+          <input type="number" min="0" max="10" step="0.5" data-num="grain.opacity">
+        </div>
+        <div class="settings-foot">
+          <button class="settings-btn" type="button" data-action="back">{{ i18n "settings_back" }}</button>
+          <button class="settings-btn" type="button" data-action="reset" data-reset="grain">{{ i18n "settings_reset" }}</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  {{- /* 移动端浮动设置按钮（右栏在窄屏隐藏时兜底） */}}
+  <button id="settings-fab" type="button" aria-label="{{ i18n "settings_title" }}" title="{{ i18n "settings_title" }}">&#9881;</button>
+
+  {{- /* 组件设置系统（localStorage 持久化，先读设置再启动组件） */}}
+  <script src="{{ with resources.Get "js/settings.js" }}{{ (. | fingerprint).RelPermalink }}{{ end }}" defer></script>

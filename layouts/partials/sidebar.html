@@ -5,6 +5,6 @@
     {{ partial "site-title.html" (dict "class" "display-mobile") }}
 </div>
 <nav class="nav" aria-label="{{ i18n "nav" }}">
-    {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+    {{ partial "menu.html" (dict "page" .) }}
     {{ partial "lang-switch.html" . }}
 </nav>

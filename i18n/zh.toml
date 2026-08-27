@@ -46,6 +46,8 @@ other = "页面不存在。"
 # ---------- 设置弹窗（组件设置） ----------
 [settings_title]
 other = "组件设置"
+[settings_entry]
+other = "组件"
 [settings_particles]
 other = "粒子（点线）"
 [settings_koi]

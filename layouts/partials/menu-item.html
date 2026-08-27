@@ -1,5 +1,6 @@
 {{- /* 菜单单项：圆点 + 链接 + 当前页高亮（active/aria-current）。
-         active 由调用方传入（顶层用 HasMenuCurrent、子项用 IsMenuCurrent，语义不同）。 */}}
+         active 由调用方（menu.html）计算：RelPermalink 精确匹配 / IsDescendant
+         （契约见 docs/navigation-contract.md）。 */}}
 {{- $active := .active }}
 <li class="nav-item{{ if $active }} active{{ end }}">
   <span class="nav-dot" aria-hidden="true"></span>

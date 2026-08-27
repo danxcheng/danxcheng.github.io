@@ -39,6 +39,8 @@ other = "Page not found."
 # ---------- Settings dialog ----------
 [settings_title]
 other = "Component Settings"
+[settings_entry]
+other = "Components"
 [settings_particles]
 other = "Particles"
 [settings_koi]
