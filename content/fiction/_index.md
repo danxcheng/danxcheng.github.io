@@ -11,4 +11,9 @@
 #
 # 目录名建议用拼音或英文（URL 更干净），如 my-novel/ 而非 我的小说/。
 title = '小说'
+
+[navigation]
+  show = true
+  group = 'sections'
+  weight = 20
 +++

@@ -696,6 +696,9 @@ var createKoiPond = (canvas, options = {}) => {
   const destroy = () => {
     stop();
     detachListeners();
+    /* 擦掉最后一帧，否则关闭后鱼会冻结残留在画布上 */
+    const ctx = canvas.getContext("2d");
+    if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
   return {
     start,

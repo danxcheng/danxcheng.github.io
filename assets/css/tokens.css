@@ -44,8 +44,19 @@
   }
 }
 
-/* 手动主题覆盖（设置面板选择，优先级高于系统偏好；data-theme 缺省时回落系统） */
-/* 浅色与默认 :root 一致，无需重复定义；dark 覆盖如下 */
+/* 手动主题覆盖（设置面板选择，优先级高于系统偏好；data-theme 缺省时回落系统）。
+   注意：浅色必须显式定义——系统深色时 @media (prefers-color-scheme: dark) 会覆盖默认 :root，
+   没有这条规则点"浅"会失效。 */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f7f1e3;
+  --bg-soft: #efe7d4;
+  --text: #211d16;
+  --muted: #6f675a;
+  --link: #b03a1e;
+  --accent: #c4483a;
+  --border: #e3d9c2;
+}
 :root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #1a1712;

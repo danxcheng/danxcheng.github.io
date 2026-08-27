@@ -10,6 +10,12 @@
 [nav]
 other = "导航"
 
+[nav_home]
+other = "首页"
+
+[nav_sections_group]
+other = "栏目"
+
 # 首页"最新文章"标题（首页目前是简介式，此键保留备用）
 [latest_posts]
 other = "最新文章"
@@ -88,3 +94,15 @@ other = "强度（%）"
 other = "欢乐颂 · 贝多芬"
 [music_play_pause]
 other = "播放/暂停"
+[music_prev]
+other = "上一曲"
+[music_next]
+other = "下一曲"
+[music_shuffle]
+other = "随机播放"
+[track_ode_to_joy]
+other = "欢乐颂 · 贝多芬"
+[track_fur_elise]
+other = "致爱丽丝 · 贝多芬"
+[track_canon]
+other = "卡农 · 帕赫贝尔"

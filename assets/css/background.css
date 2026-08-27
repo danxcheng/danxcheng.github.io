@@ -3,7 +3,13 @@
 #pond {
   position: fixed;
   inset: 0;
+  /* canvas 是替换元素：仅 inset:0 不会拉伸它（保持固有 300×150），必须显式宽高 */
+  width: 100vw;
+  height: 100vh;
+  display: block;
   z-index: -1;
+  pointer-events: none; /* 背景不拦截鼠标事件 */
+  touch-action: none;
 }
 
 
@@ -22,4 +28,3 @@
 .footer-links a { color: var(--muted); display: inline-flex; align-items: center; }
 .footer-links a:hover { color: var(--link); }
 .footer-links svg { display: block; }
-

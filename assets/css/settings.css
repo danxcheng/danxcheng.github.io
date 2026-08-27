@@ -167,9 +167,11 @@
   font-size: 0.85rem;
 }
 
-/* 分段选择（主题：浅/深/自动）——固定宽度，与"开关+调整"右对齐 */
+/* 分段选择（主题：浅/深/自动）——固定宽度，与"开关+调整"右对齐。
+   显式 width 而非仅 flex-basis：避免内联 flex 的固有尺寸（内容 54px）参与父级计算导致溢出 */
 .settings-seg {
-  display: inline-flex;
+  display: flex;
+  width: 108px;
   flex: 0 0 108px;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -223,16 +225,16 @@
   z-index: 45;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.45rem 0.8rem;
+  gap: 0.4rem;
+  padding: 0.45rem 0.7rem;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--bg);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 .music-toggle {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   display: grid;
   place-items: center;
@@ -240,12 +242,15 @@
   border-radius: 50%;
   background: transparent;
   color: var(--muted);
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   cursor: pointer;
+  line-height: 1;
 }
 .music-toggle:hover { color: var(--link); border-color: var(--link); }
+/* 随机开关打开态：朱砂高亮 */
+.music-toggle.on { color: var(--link); border-color: var(--link); background: color-mix(in srgb, var(--link) 12%, transparent); }
 .music-info { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
-.music-title { font-size: 0.75rem; color: var(--text); white-space: nowrap; }
+.music-title { font-size: 0.75rem; color: var(--text); white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis; }
 .music-track {
   display: block;
   width: 96px;
@@ -253,6 +258,7 @@
   border-radius: 2px;
   background: var(--border);
   overflow: hidden;
+  cursor: pointer;
 }
 .music-track-fill {
   display: block;
@@ -266,5 +272,5 @@
 /* 窄屏收起标题，只留按钮+进度 */
 @media (max-width: 480px) {
   .music-title { display: none; }
-  .music-track { width: 64px; }
+  .music-track { width: 56px; }
 }

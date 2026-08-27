@@ -6,6 +6,12 @@
 [nav]
 other = "Navigation"
 
+[nav_home]
+other = "Home"
+
+[nav_sections_group]
+other = "Sections"
+
 [latest_posts]
 other = "Latest Posts"
 
@@ -81,3 +87,15 @@ other = "Intensity (%)"
 other = "Ode to Joy · Beethoven"
 [music_play_pause]
 other = "Play/Pause"
+[music_prev]
+other = "Previous"
+[music_next]
+other = "Next"
+[music_shuffle]
+other = "Shuffle"
+[track_ode_to_joy]
+other = "Ode to Joy · Beethoven"
+[track_fur_elise]
+other = "Für Elise · Beethoven"
+[track_canon]
+other = "Canon in D · Pachelbel"

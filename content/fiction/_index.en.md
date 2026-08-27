@@ -8,4 +8,9 @@
 # Ordering: lists sort by date descending by default; use front matter
 # weight (smaller = first) on each chapter for correct reading order.
 title = 'Fiction'
+
+[navigation]
+  show = true
+  group = 'sections'
+  weight = 20
 +++

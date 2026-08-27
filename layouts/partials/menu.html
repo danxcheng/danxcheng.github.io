@@ -1,34 +1,67 @@
-{{- /* 主菜单：两级结构。
-     顶层项：带 .Children 的（如"栏目"）渲染为可折叠分组（默认收起，点击展开）；
-     有 URL 的渲染为链接。
-     高亮：子页（文章页）用 HasMenuCurrent 命中所在分组；子项/顶层链接用 IsMenuCurrent 精确命中。
-     pageRef 解析不到页面的项 .URL 为空，直接跳过。 */}}
+{{- /* ============================================================
+       主菜单：Content + Front Matter 驱动（不再读 site.Menus / hugo.toml 菜单）。
+       结构：
+         1. 首页       —— 固定链接（i18n 文案），当前页高亮
+         2. "栏目"分组 —— 固定分组（i18n 文案），子项来自内容树：
+            - 顶层 Section（_index.md）与顶层 Page（content/xxx.md）
+            - 仅 navigation.show=true 的进入导航（默认 false）
+            - 同一层级按 navigation.weight 升序排序
+            - 显示名 = 当前语言的 Page.Title（无需在 hugo.toml 维护名称）
+       高亮：基于 Page identity（RelPermalink 精确匹配 / IsDescendant 命中所在 Section），
+             不再使用 IsMenuCurrent / HasMenuCurrent。
+       第一版只支持两级（分组 → 节点），不实现无限嵌套。
+       ============================================================ */}}
 {{- $page := .page }}
-{{- $menuID := .menuID }}
-{{- with index site.Menus $menuID }}
-    <ul class="nav-menu">
-        {{- range . }}
-            {{- if .Children }}
-                {{- /* 可折叠分组：默认收起，点标签展开子栏目 */}}
-                {{- $groupActive := $page.HasMenuCurrent $menuID . }}
-                <li class="nav-group">
-                    <details class="nav-group-details"{{ if $groupActive }} open{{ end }}>
-                        <summary class="nav-group-title">
-                            {{ .Name }}<span class="nav-group-caret" aria-hidden="true">&#9656;</span>
-                        </summary>
-                        <ul class="nav-children">
-                            {{- range .Children }}
-                                {{- if .URL }}
-                                    {{- partial "menu-item.html" (dict "Name" .Name "URL" .URL "active" ($page.IsMenuCurrent $menuID .)) }}
-                                {{- end }}
-                            {{- end }}
-                        </ul>
-                    </details>
-                </li>
-            {{- else if .URL }}
-                {{- /* 普通顶层链接（如首页） */}}
-                {{- partial "menu-item.html" (dict "Name" .Name "URL" .URL "active" ($page.IsMenuCurrent $menuID .)) }}
+{{- $nodes := slice }}
+
+{{- /* 收集导航节点：顶层 Section（navigation.show=true） */}}
+{{- range site.Sections }}
+    {{- $sec := . }}
+    {{- with .Params.navigation }}
+        {{- if .show }}
+            {{- $nodes = $nodes | append (dict "name" $sec.Title "url" $sec.RelPermalink "weight" (default 999 .weight) "page" $sec) }}
+        {{- end }}
+    {{- end }}
+{{- end }}
+
+{{- /* 收集导航节点：顶层 Page（navigation.show=true） */}}
+{{- range site.RegularPages }}
+    {{- if .Parent.IsHome }}
+        {{- $p := . }}
+        {{- with .Params.navigation }}
+            {{- if .show }}
+                {{- $nodes = $nodes | append (dict "name" $p.Title "url" $p.RelPermalink "weight" (default 999 .weight) "page" $p) }}
             {{- end }}
         {{- end }}
-    </ul>
+    {{- end }}
 {{- end }}
+
+{{- $nodes = sort $nodes "weight" "asc" }}
+
+<ul class="nav-menu">
+    {{- /* 首页（固定，不属栏目） */}}
+    {{- partial "menu-item.html" (dict "Name" (i18n "nav_home") "URL" site.Home.RelPermalink "active" $page.IsHome) }}
+
+    {{- /* "栏目"分组：有可见节点才渲染 */}}
+    {{- if gt (len $nodes) 0 }}
+        {{- $groupOpen := false }}
+        {{- range $nodes }}
+            {{- if or (eq $page.RelPermalink .page.RelPermalink) ($page.IsDescendant .page) }}
+                {{- $groupOpen = true }}
+            {{- end }}
+        {{- end }}
+        <li class="nav-group">
+            <details class="nav-group-details"{{ if $groupOpen }} open{{ end }}>
+                <summary class="nav-group-title">
+                    {{ i18n "nav_sections_group" }}<span class="nav-group-caret" aria-hidden="true">&#9656;</span>
+                </summary>
+                <ul class="nav-children">
+                    {{- range $nodes }}
+                        {{- $active := or (eq $page.RelPermalink .page.RelPermalink) ($page.IsDescendant .page) }}
+                        {{- partial "menu-item.html" (dict "Name" .name "URL" .url "active" $active) }}
+                    {{- end }}
+                </ul>
+            </details>
+        </li>
+    {{- end }}
+</ul>

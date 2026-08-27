@@ -71,7 +71,8 @@ enableRobotsTXT = true
 #   label     = 界面显示名（语言切换器里显示）
 #   direction = 书写方向（中文/英文都是 ltr 左到右）
 #   weight    = 语言排序权重（越小越靠前，也是切换器顺序）
-# 每语言还可以定义自己的主菜单 [menus.main]。
+# 导航不再由 hugo.toml 定义：栏目来自内容树的 navigation front matter
+# （见 layouts/partials/menu.html 与各 _index.md 的 [navigation] 块）。
 # ------------------------------------------------------------
 [languages]
 
@@ -81,68 +82,11 @@ enableRobotsTXT = true
     direction = 'ltr'
     weight = 1
 
-    # 中文主菜单。
-    # pageRef 指向页面路径（推荐写法，比 url 更智能）：
-    # '/' = 首页，'/posts' = 文章分区。菜单项会随语言自动解析。
-    [[languages.zh.menus.main]]
-      name = '首页'
-      pageRef = '/'
-      weight = 1
-
-    # "栏目"分组：无 pageRef = 纯分组标签，子项挂在它下面
-    [[languages.zh.menus.main]]
-      name = '栏目'
-      identifier = 'sections'
-      weight = 2
-
-    [[languages.zh.menus.main]]
-      name = '文章'
-      parent = 'sections'
-      pageRef = '/posts'
-      weight = 1
-    [[languages.zh.menus.main]]
-      name = '小说'
-      parent = 'sections'
-      pageRef = '/fiction'
-      weight = 2
-    [[languages.zh.menus.main]]
-      name = '测试'
-      parent = 'sections'
-      pageRef = '/test'
-      weight = 3
-
   [languages.en]
     locale = 'en-US'
     label = 'English'
     direction = 'ltr'
     weight = 2
-
-    [[languages.en.menus.main]]
-      name = 'Home'
-      pageRef = '/'
-      weight = 1
-
-    # "Sections" group (no pageRef = label only)
-    [[languages.en.menus.main]]
-      name = 'Sections'
-      identifier = 'sections'
-      weight = 2
-
-    [[languages.en.menus.main]]
-      name = 'Posts'
-      parent = 'sections'
-      pageRef = '/posts'
-      weight = 1
-    [[languages.en.menus.main]]
-      name = 'Fiction'
-      parent = 'sections'
-      pageRef = '/fiction'
-      weight = 2
-    [[languages.en.menus.main]]
-      name = 'Test'
-      parent = 'sections'
-      pageRef = '/test'
-      weight = 3
 
 # 图片处理缓存目录（配合 .github/workflows/hugo.yaml 的 actions/cache 步骤加速构建）
 [caches]

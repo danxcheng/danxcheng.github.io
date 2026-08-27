@@ -89,3 +89,21 @@
   color: var(--muted);
 }
 
+
+/* 代码块复制按钮（copy-code.js 注入） */
+.copy-code-btn {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-family: var(--font-display);
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s, color 0.15s;
+}
+.copy-code-btn:hover { opacity: 1; color: var(--link); border-color: var(--link); }

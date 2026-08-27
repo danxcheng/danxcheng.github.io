@@ -92,7 +92,13 @@
   {{- /* 设置系统用的运行时配置（koi 库指纹地址等） */}}
   <script>
     window.SiteConfig = {
-      koiUrl: "{{ with resources.Get "background/koi-pond.js" }}{{ (. | fingerprint).RelPermalink }}{{ end }}"
+      koiUrl: "{{ with resources.Get "background/koi-pond.js" }}{{ (. | fingerprint).RelPermalink }}{{ end }}",
+      /* 播放器曲目表（名称走 i18n，mp3 必须存在，ogg 可选兜底） */
+      tracks: [
+        { name: "{{ i18n "track_ode_to_joy" }}", mp3: "/audio/ode-to-joy.mp3", ogg: "/audio/ode-to-joy.ogg" },
+        { name: "{{ i18n "track_fur_elise" }}", mp3: "/audio/fur-elise.mp3", ogg: "/audio/fur-elise.ogg" },
+        { name: "{{ i18n "track_canon" }}", mp3: "/audio/canon-in-d.mp3", ogg: "" }
+      ]
     };
   </script>
 
@@ -206,17 +212,18 @@
   <script src="{{ with resources.Get "js/settings.js" }}{{ (. | fingerprint).RelPermalink }}{{ end }}" defer></script>
 
   {{- /* 音乐播放器（原生 audio，自托管，无外部依赖） */}}
-  <audio id="music-audio" preload="none" loop>
-    <source src="/audio/ode-to-joy.mp3" type="audio/mpeg">
-    <source src="/audio/ode-to-joy.ogg" type="audio/ogg">
-  </audio>
-  <div id="music-player" class="music-player" aria-label="{{ i18n "music_title" }}">
-    <button id="music-toggle" class="music-toggle" type="button" aria-label="{{ i18n "music_play_pause" }}">&#9654;</button>
+  <audio id="music-audio" preload="none" aria-hidden="true"></audio>
+  <div id="music-player" class="music-player" aria-label="{{ i18n "music_title" }}" data-playlist='[{"src":"/audio/ode-to-joy.mp3","title":"{{ i18n "music_title" }}"}]'>
+    <button id="music-prev" class="music-prev" type="button" aria-label="{{ i18n "music_prev" }}">⏮</button>
+    <button id="music-toggle" class="music-toggle" type="button" aria-label="{{ i18n "music_play_pause" }}">▶</button>
+    <button id="music-next" class="music-next" type="button" aria-label="{{ i18n "music_next" }}">⏭</button>
+    <button id="music-shuffle" class="music-shuffle" type="button" aria-label="{{ i18n "music_shuffle" }}">🔀</button>
     <span class="music-info">
-      <span class="music-title">{{ i18n "music_title" }}</span>
+      <span id="music-title" class="music-title">{{ i18n "music_title" }}</span>
       <span class="music-track" aria-hidden="true"><span class="music-track-fill"></span></span>
     </span>
   </div>
   <script src="{{ with resources.Get "js/music-player.js" }}{{ (. | fingerprint).RelPermalink }}{{ end }}" defer></script>
+  <script src="{{ with resources.Get "js/copy-code.js" }}{{ (. | fingerprint).RelPermalink }}{{ end }}" defer></script>
 </body>
 </html>
