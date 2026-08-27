@@ -163,10 +163,8 @@
      "koi.count", "koi.alpha", "grain.opacity"].forEach(syncParamInputs);
   }
   function switchView(name) {
-    $$(".settings-view", dialog).forEach(function (v) {
-      if (v.dataset.view === name) v.hidden = false;
-      else v.hidden = true;   // 显式隐藏其它视图，防止上一级残留
-    });
+    var p = dialog.querySelector(".settings-panel");
+    if (p) p.dataset.view = name;   // 显隐由 CSS 规则 .settings-panel[data-view=...] 决定
   }
   function syncDetail(name) {
     if (name === "particles") ["particles.count", "particles.size", "particles.speed", "particles.linkDistance"].forEach(syncParamInputs);
@@ -188,6 +186,8 @@
     dialog = document.getElementById("settings-dialog");
 
     if (dialog) {
+      var panel = dialog.querySelector(".settings-panel");
+      panel.dataset.view = "main";   // 默认主视图（CSS 控制显隐）
       $("[data-action=close]", dialog).addEventListener("click", function () { dialog.close(); });
       // 遮罩点击关闭（原生 dialog 点 ::backdrop 不会自动关）
       dialog.addEventListener("click", function (ev) {

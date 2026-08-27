@@ -153,19 +153,25 @@
 .settings-close:hover { color: var(--link); }
 
 .settings-view h3 { margin: 0.25rem 0 0.75rem; font-size: 0.95rem; font-family: var(--font-display); }
-/* 视图切换：hidden 强制隐藏，防止"上一级残留" */
-.settings-view[hidden] { display: none !important; }
+/* 视图切换：面板 data-view 决定显示哪个视图（纯 CSS，无残留可能） */
+.settings-view { display: none; }
+.settings-panel[data-view="main"] [data-view="main"],
+.settings-panel[data-view="particles"] [data-view="particles"],
+.settings-panel[data-view="koi"] [data-view="koi"],
+.settings-panel[data-view="grain"] [data-view="grain"] { display: block; }
 
 /* 主面板行：名称 + 开关 + 调整按钮 */
 .settings-row {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
   padding: 0.55rem 0;
   border-bottom: 1px solid var(--border);
 }
 .settings-row:last-of-type { border-bottom: none; }
-.settings-name { flex: 1; font-size: 0.9rem; }
+.settings-name { font-size: 0.9rem; }
+.settings-controls { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
 
 /* 开关（switch） */
 .settings-switch { position: relative; display: inline-block; width: 36px; height: 20px; flex-shrink: 0; }

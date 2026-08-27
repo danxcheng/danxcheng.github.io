@@ -73,7 +73,7 @@
 
   {{- /* ============ 组件设置弹窗（原生 <dialog>） ============ */}}
   <dialog id="settings-dialog" aria-labelledby="settings-title">
-    <div class="settings-panel">
+    <div class="settings-panel" data-view="main">
       <div class="settings-head">
         <h2 id="settings-title">组件设置</h2>
         <button class="settings-close" type="button" data-action="close" aria-label="关闭">&times;</button>
@@ -83,26 +83,34 @@
       <div data-view="main" class="settings-view">
         <div class="settings-row">
           <span class="settings-name">粒子（点线）</span>
-          <label class="settings-switch"><input type="checkbox" data-toggle="particles"><span></span></div>
-          <button class="settings-btn" type="button" data-detail="particles">调整</button>
+          <span class="settings-controls">
+            <label class="settings-switch"><input type="checkbox" data-toggle="particles"><span></span></label>
+            <button class="settings-btn" type="button" data-detail="particles">调整</button>
+          </span>
         </div>
         <div class="settings-row">
           <span class="settings-name">锦鲤</span>
-          <label class="settings-switch"><input type="checkbox" data-toggle="koi"><span></span></div>
-          <button class="settings-btn" type="button" data-detail="koi">调整</button>
+          <span class="settings-controls">
+            <label class="settings-switch"><input type="checkbox" data-toggle="koi"><span></span></label>
+            <button class="settings-btn" type="button" data-detail="koi">调整</button>
+          </span>
         </div>
         <div class="settings-row">
           <span class="settings-name">纸噪点</span>
-          <label class="settings-switch"><input type="checkbox" data-toggle="grain"><span></span></div>
-          <button class="settings-btn" type="button" data-detail="grain">调整</button>
+          <span class="settings-controls">
+            <label class="settings-switch"><input type="checkbox" data-toggle="grain"><span></span></label>
+            <button class="settings-btn" type="button" data-detail="grain">调整</button>
+          </span>
         </div>
         <div class="settings-row">
           <span class="settings-name">主题</span>
-          <div class="settings-seg" data-seg="theme">
-            <button type="button" data-theme="light">浅</button>
-            <button type="button" data-theme="dark">深</button>
-            <button type="button" data-theme="auto">自动</button>
-          </div>
+          <span class="settings-controls">
+            <div class="settings-seg" data-seg="theme">
+              <button type="button" data-theme="light">浅</button>
+              <button type="button" data-theme="dark">深</button>
+              <button type="button" data-theme="auto">自动</button>
+            </div>
+          </span>
         </div>
         <div class="settings-foot">
           <button class="settings-btn" type="button" data-action="reset-all">全部重置</button>
@@ -110,7 +118,7 @@
       </div>
 
       {{- /* 粒子详情 */}}
-      <div data-view="particles" class="settings-view" hidden>
+      <div data-view="particles" class="settings-view">
         <h3>粒子设置</h3>
         <div class="settings-param"><span>数量</span>
           <input type="range" min="10" max="200" step="1" data-range="particles.count">
@@ -135,7 +143,7 @@
       </div>
 
       {{- /* 锦鲤详情 */}}
-      <div data-view="koi" class="settings-view" hidden>
+      <div data-view="koi" class="settings-view">
         <h3>锦鲤设置</h3>
         <div class="settings-param"><span>数量</span>
           <input type="range" min="3" max="30" step="1" data-range="koi.count">
@@ -152,7 +160,7 @@
       </div>
 
       {{- /* 噪点详情 */}}
-      <div data-view="grain" class="settings-view" hidden>
+      <div data-view="grain" class="settings-view">
         <h3>纸噪点设置</h3>
         <div class="settings-param"><span>强度（%）</span>
           <input type="range" min="0" max="10" step="0.5" data-range="grain.opacity">
