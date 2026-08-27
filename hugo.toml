@@ -31,7 +31,7 @@ enableRobotsTXT = true
 [params]
   # 站点描述：<meta name="description"> 的最后一级回退
   # （页面没有 description、也没有正文摘要时用它）。
-  description = 'Danxcheng 的个人主页：技术笔记、生活记录与随想。'
+  description = 'Danxcheng 的个人主页'
 
   # 默认社交分享图（og:image，位于 static/og-image.png）
   images = ['og-image.png']
