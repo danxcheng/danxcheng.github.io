@@ -4,7 +4,7 @@
   "FileReferences": {
     "Moc": "senko_normal.moc3",
     "Textures": [
-      "senko_normal.4096/texture_00.png"
+      "senko_normal.2048/texture_00.png"
     ],
     "Physics": "senko.physics3.json",
     "Motions": {

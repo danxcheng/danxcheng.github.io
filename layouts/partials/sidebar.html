@@ -2,7 +2,7 @@
          主题切换在"组件"设置弹窗里（右栏底部入口）。 */}}
 <div class="sidebar-head">
     {{ partial "logo.html" . }}
-    <h1 class="display display-mobile"><a class="display-link" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a></h1>
+    {{ partial "site-title.html" (dict "class" "display-mobile") }}
 </div>
 <nav class="nav" aria-label="{{ i18n "nav" }}">
     {{ partial "menu.html" (dict "menuID" "main" "page" .) }}

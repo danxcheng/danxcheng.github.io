@@ -23,6 +23,7 @@ title = 'Danxcheng'
 # ------------------------------------------------------------
 defaultContentLanguage = 'zh'
 defaultContentLanguageInSubdir = true
+enableRobotsTXT = true
 
 # ------------------------------------------------------------
 # 站点级参数（模板里用 site.Params.xxx 读取）
@@ -31,6 +32,9 @@ defaultContentLanguageInSubdir = true
   # 站点描述：<meta name="description"> 的最后一级回退
   # （页面没有 description、也没有正文摘要时用它）。
   description = 'Danxcheng 的个人主页：技术笔记、生活记录与随想。'
+
+  # 默认社交分享图（og:image，位于 static/og-image.png）
+  images = ['og-image.png']
 
   # 页脚社交链接。模板 layouts/partials/footer.html 约定：
   #   name = 'mail'   -> 渲染为邮件图标（mailto:）
@@ -52,7 +56,12 @@ defaultContentLanguageInSubdir = true
 # ------------------------------------------------------------
 [outputs]
   home = ["HTML", "RSS"]
-  section = ["HTML", "RSS"]
+  # section 默认即 HTML+RSS，无需重复声明
+
+# ------------------------------------------------------------
+# 分类法：只用 tags（内容暂无 tags 时不会生成空 categories 页）
+[taxonomies]
+  tag = 'tags'
 
 # ------------------------------------------------------------
 # 语言定义。
@@ -135,7 +144,7 @@ defaultContentLanguageInSubdir = true
       pageRef = '/test'
       weight = 3
 
-# 图片处理缓存目录（官方部署指南建议：指向 Actions 缓存，加速重复构建）
+# 图片处理缓存目录（配合 .github/workflows/hugo.yaml 的 actions/cache 步骤加速构建）
 [caches]
   [caches.images]
     dir = ':cacheDir/images'

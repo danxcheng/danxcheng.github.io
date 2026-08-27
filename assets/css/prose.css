@@ -25,7 +25,7 @@
   font-family: var(--font-mono);
   font-size: 0.88em;
   color: var(--accent);
-  background: var(--code-bg);
+  background: var(--bg-soft);  /* 与 --code-bg 合并，单源 */
   padding: 0.15em 0.35em;
   border-radius: 3px;
 }

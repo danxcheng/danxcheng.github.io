@@ -1,6 +1,7 @@
 {{- /* 主菜单：两级结构。
      顶层项：带 .Children 的（如"栏目"）渲染为可折叠分组（默认收起，点击展开）；
-     有 URL 的渲染为链接。子项：当前页左侧朱砂圆点。
+     有 URL 的渲染为链接。
+     高亮：子页（文章页）用 HasMenuCurrent 命中所在分组；子项/顶层链接用 IsMenuCurrent 精确命中。
      pageRef 解析不到页面的项 .URL 为空，直接跳过。 */}}
 {{- $page := .page }}
 {{- $menuID := .menuID }}
@@ -9,19 +10,16 @@
         {{- range . }}
             {{- if .Children }}
                 {{- /* 可折叠分组：默认收起，点标签展开子栏目 */}}
+                {{- $groupActive := $page.HasMenuCurrent $menuID . }}
                 <li class="nav-group">
-                    <details class="nav-group-details">
+                    <details class="nav-group-details"{{ if $groupActive }} open{{ end }}>
                         <summary class="nav-group-title">
                             {{ .Name }}<span class="nav-group-caret" aria-hidden="true">&#9656;</span>
                         </summary>
                         <ul class="nav-children">
                             {{- range .Children }}
                                 {{- if .URL }}
-                                    {{- $active := $page.IsMenuCurrent $menuID . }}
-                                    <li class="nav-item{{ if $active }} active{{ end }}">
-                                        <span class="nav-dot" aria-hidden="true"></span>
-                                        <a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
-                                    </li>
+                                    {{- partial "menu-item.html" (dict "Name" .Name "URL" .URL "active" ($page.IsMenuCurrent $menuID .)) }}
                                 {{- end }}
                             {{- end }}
                         </ul>
@@ -29,11 +27,7 @@
                 </li>
             {{- else if .URL }}
                 {{- /* 普通顶层链接（如首页） */}}
-                {{- $active := $page.IsMenuCurrent $menuID . }}
-                <li class="nav-item{{ if $active }} active{{ end }}">
-                    <span class="nav-dot" aria-hidden="true"></span>
-                    <a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
-                </li>
+                {{- partial "menu-item.html" (dict "Name" .Name "URL" .URL "active" ($page.IsMenuCurrent $menuID .)) }}
             {{- end }}
         {{- end }}
     </ul>

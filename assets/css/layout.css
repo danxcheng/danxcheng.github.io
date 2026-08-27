@@ -34,7 +34,7 @@
 .rightbar {
   grid-column: 3;
   grid-row: 1;
-  width: var(--grid-side);   /* 与左栏同宽，保持网格对称 → 正文始终居中 */
+  /* 列宽由 grid-template-columns 保证（--grid-side），正文始终居中 */
 }
 .rightbar-date {
   display: inline-block;
@@ -52,8 +52,6 @@
   grid-row: 2;
   margin-top: 4rem;
 }
-
-.content-body { width: 100%; }
 
 /* md/lg 加大顶部呼吸空间（Mitchell：md:mt-20 / lg:mt-32） */
 @media (min-width: 768px) {
@@ -89,7 +87,7 @@
 
 /* "栏目"分组：与"首页"同一层级（同字号/同颜色/同一节奏），
    默认收起，点击标签展开子栏目（details/summary） */
-.nav-group { padding: 0.35rem 0; }   /* 与 .nav-item 一致的垂直节奏 */
+.nav-group { padding: var(--nav-item-pad) 0; }   /* 与 .nav-item 一致的垂直节奏 */
 .nav-group-title {
   display: inline-flex;
   align-items: center;
@@ -198,8 +196,8 @@
   color: var(--text);
 }
 /* 17px × 1.4 ≈ 24px，与 24px 图标等高，零偏移即垂直对齐 */
-.display-desktop { display: block; margin-top: 0; }
-.display-mobile { display: none; margin: 0; }
+.display-desktop { display: block; }
+.display-mobile { display: none; }
 .display-article {
   font-size: var(--article-title-size);  /* 15px：比站点标题小一档形成层级 */
   margin: 0 0 var(--article-title-gap);  /* Mitchell md:mb-11 */

@@ -34,8 +34,57 @@ other = "分页"
 [toc]
 other = "目录"
 
-[tags]
-other = "标签"
-
 [not_found]
 other = "页面不存在。"
+
+# ---------- 设置弹窗（组件设置） ----------
+[settings_title]
+other = "组件设置"
+[settings_particles]
+other = "粒子（点线）"
+[settings_koi]
+other = "锦鲤"
+[settings_grain]
+other = "纸噪点"
+[settings_theme]
+other = "主题"
+[settings_light]
+other = "浅"
+[settings_dark]
+other = "深"
+[settings_auto]
+other = "自动"
+[settings_adjust]
+other = "调整"
+[settings_back]
+other = "返回"
+[settings_reset]
+other = "重置"
+[settings_reset_all]
+other = "全部重置"
+[settings_close]
+other = "关闭"
+[settings_particles_title]
+other = "粒子设置"
+[settings_koi_title]
+other = "锦鲤设置"
+[settings_grain_title]
+other = "纸噪点设置"
+[settings_count]
+other = "数量"
+[settings_size]
+other = "大小"
+[settings_speed]
+other = "速度"
+[settings_link_distance]
+other = "连线距离"
+[settings_alpha]
+other = "透明度（%）"
+[settings_intensity]
+other = "强度（%）"
+
+# ---------- 音乐播放器 ----------
+[music_title]
+other = "欢乐颂 · 贝多芬"
+[music_play_pause]
+other = "播放/暂停"

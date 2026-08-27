@@ -1,15 +1,14 @@
 /* 设计变量：两色（米白暖底 + 墨黑正文）+ 朱砂强调。
    色值取自调研参考的"羊皮纸/古籍"质感；对比度均过 WCAG AA（4.5:1）。 */
 :root {
+  color-scheme: light;    /* 原生控件（滚动条/输入框）跟随主题 */
   --bg: #f7f1e3;          /* 米白暖底 */
   --bg-soft: #efe7d4;     /* pre/code 底色，比主背景深一档 */
   --text: #211d16;        /* 墨黑正文（近黑非纯黑，对比 >12:1） */
   --muted: #6f675a;       /* 日期/页脚等小字 */
   --link: #b03a1e;        /* 朱砂红 */
-  --link-hover: #8f2d15;
   --accent: #c4483a;      /* 行内代码色 */
   --border: #e3d9c2;      /* 细线 */
-  --code-bg: #efe7d4;
 
   /* 尺寸/间距 Token：改一处全站联动，对齐关系由 calc 自动派生（不写死） */
   --logo-size: 24px;             /* 站点图标尺寸 */
@@ -40,33 +39,20 @@
     --text: #e9e2d3;
     --muted: #a39a87;
     --link: #e08a5f;
-    --link-hover: #f0a47e;
     --accent: #f2a48f;
     --border: #3a332a;
-    --code-bg: #262019;
   }
 }
 
 /* 手动主题覆盖（设置面板选择，优先级高于系统偏好；data-theme 缺省时回落系统） */
-:root[data-theme="light"] {
-  --bg: #f7f1e3;
-  --bg-soft: #efe7d4;
-  --text: #211d16;
-  --muted: #6f675a;
-  --link: #b03a1e;
-  --link-hover: #8f2d15;
-  --accent: #c4483a;
-  --border: #e3d9c2;
-  --code-bg: #efe7d4;
-}
+/* 浅色与默认 :root 一致，无需重复定义；dark 覆盖如下 */
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --bg: #1a1712;
   --bg-soft: #262019;
   --text: #e9e2d3;
   --muted: #a39a87;
   --link: #e08a5f;
-  --link-hover: #f0a47e;
   --accent: #f2a48f;
   --border: #3a332a;
-  --code-bg: #262019;
 }

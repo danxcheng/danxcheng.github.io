@@ -195,7 +195,7 @@ var pJS = function(tag_id, params){
 
     if(pJS && pJS.interactivity.events.resize){
 
-      window.addEventListener('resize', function(){
+      pJS.fn.vendors.regListener(window, 'resize', function(){
 
           pJS.canvas.w = pJS.canvas.el.offsetWidth;
           pJS.canvas.h = pJS.canvas.el.offsetHeight;
@@ -929,6 +929,7 @@ var pJS = function(tag_id, params){
           dy_mouse = p.y - pJS.interactivity.mouse.pos_y,
           dist_mouse = Math.sqrt(dx_mouse*dx_mouse + dy_mouse*dy_mouse);
 
+      if (dist_mouse === 0) return;   /* 修复除零：鼠标压在粒子中心时 NaN 传播导致粒子消失 */
       var normVec = {x: dx_mouse/dist_mouse, y: dy_mouse/dist_mouse},
           repulseRadius = pJS.interactivity.modes.repulse.distance,
           velocity = 100,
@@ -1059,6 +1060,13 @@ var pJS = function(tag_id, params){
 
   /* ---------- pJS functions - vendors ------------ */
 
+  /* 监听器注册辅助：统一收集，destroy 时统一移除（本地补丁，修复重建泄漏） */
+  pJS.fn.vendors.regListener = function(target, type, fn){
+    if(!pJS.tmp.listeners) pJS.tmp.listeners = [];
+    pJS.tmp.listeners.push({ target: target, type: type, fn: fn });
+    target.addEventListener(type, fn);
+  };
+
   pJS.fn.vendors.eventsListeners = function(){
 
     /* events target element */
@@ -1073,7 +1081,7 @@ var pJS = function(tag_id, params){
     if(pJS.interactivity.events.onhover.enable || pJS.interactivity.events.onclick.enable){
 
       /* el on mousemove */
-      pJS.interactivity.el.addEventListener('mousemove', function(e){
+      pJS.fn.vendors.regListener(pJS.interactivity.el, 'mousemove', function(e){
 
         if(pJS.interactivity.el == window){
           var pos_x = e.clientX,
@@ -1097,7 +1105,7 @@ var pJS = function(tag_id, params){
       });
 
       /* el on onmouseleave */
-      pJS.interactivity.el.addEventListener('mouseleave', function(e){
+      pJS.fn.vendors.regListener(pJS.interactivity.el, 'mouseleave', function(e){
 
         pJS.interactivity.mouse.pos_x = null;
         pJS.interactivity.mouse.pos_y = null;
@@ -1110,7 +1118,7 @@ var pJS = function(tag_id, params){
     /* on click event */
     if(pJS.interactivity.events.onclick.enable){
 
-      pJS.interactivity.el.addEventListener('click', function(){
+      pJS.fn.vendors.regListener(pJS.interactivity.el, 'click', function(){
 
         pJS.interactivity.mouse.click_pos_x = pJS.interactivity.mouse.pos_x;
         pJS.interactivity.mouse.click_pos_y = pJS.interactivity.mouse.pos_y;
@@ -1235,6 +1243,14 @@ var pJS = function(tag_id, params){
 
   pJS.fn.vendors.destroypJS = function(){
     cancelAnimationFrame(pJS.fn.drawAnimFrame);
+    /* 移除本次实例注册的全部监听器，防止重建泄漏 */
+    if (pJS.tmp && pJS.tmp.listeners) {
+      for (var li = 0; li < pJS.tmp.listeners.length; li++) {
+        var reg = pJS.tmp.listeners[li];
+        reg.target.removeEventListener(reg.type, reg.fn);
+      }
+      pJS.tmp.listeners = [];
+    }
     canvas_el.remove();
     pJSDom = null;
   };

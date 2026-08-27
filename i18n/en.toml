@@ -27,8 +27,57 @@ other = "Pagination"
 [toc]
 other = "Contents"
 
-[tags]
-other = "Tags"
-
 [not_found]
 other = "Page not found."
+
+# ---------- Settings dialog ----------
+[settings_title]
+other = "Component Settings"
+[settings_particles]
+other = "Particles"
+[settings_koi]
+other = "Koi"
+[settings_grain]
+other = "Paper Grain"
+[settings_theme]
+other = "Theme"
+[settings_light]
+other = "Light"
+[settings_dark]
+other = "Dark"
+[settings_auto]
+other = "Auto"
+[settings_adjust]
+other = "Adjust"
+[settings_back]
+other = "Back"
+[settings_reset]
+other = "Reset"
+[settings_reset_all]
+other = "Reset All"
+[settings_close]
+other = "Close"
+[settings_particles_title]
+other = "Particle Settings"
+[settings_koi_title]
+other = "Koi Settings"
+[settings_grain_title]
+other = "Grain Settings"
+[settings_count]
+other = "Count"
+[settings_size]
+other = "Size"
+[settings_speed]
+other = "Speed"
+[settings_link_distance]
+other = "Link Distance"
+[settings_alpha]
+other = "Opacity (%)"
+[settings_intensity]
+other = "Intensity (%)"
+
+# ---------- Music player ----------
+[music_title]
+other = "Ode to Joy · Beethoven"
+[music_play_pause]
+other = "Play/Pause"

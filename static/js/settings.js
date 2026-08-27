@@ -45,6 +45,13 @@
     try { saved = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) {}
     var hadSaved = saved !== null;
     settings = mergeDeep(DEFAULTS, saved || {});
+    // 结构校验：损坏的存储（如 {"particles": 0}）会导致 syncAll 崩溃，逐组件回退默认
+    ["particles", "koi", "grain"].forEach(function (name) {
+      var s = settings[name];
+      if (!s || typeof s !== "object" || typeof s.on !== "boolean") {
+        settings[name] = clone(DEFAULTS[name]);
+      }
+    });
     // 尊重系统"减少动态"：仅首次访问（无保存记录）时动画默认关
     if (reducedMotion && !hadSaved) {
       settings.particles.on = false;
@@ -100,7 +107,7 @@
   function stopParticles() {
     if (!particlesActive) return;
     if (window.pJSDom && window.pJSDom.length && window.pJSDom[0].pJS) {
-      try { window.pJSDom[0].pJS.fn.vendors.destroy(); } catch (e) {}
+      try { window.pJSDom[0].pJS.fn.vendors.destroypJS(); } catch (e) {}
     }
     window.pJSDom = [];
     particlesActive = false;
@@ -108,22 +115,27 @@
   function rebuildParticles() { stopParticles(); startParticles(); }
 
   /* ---------- 锦鲤（koi-pond，动态 import） ---------- */
+  var koiGen = 0;   // 代际计数：作废过期的 import 结果，防止重建竞态
   function startKoi() {
     if (!isDesktop || pond || !settings.koi.on) return;
     var url = window.SiteConfig && window.SiteConfig.koiUrl;
     if (!url) return;
+    var gen = ++koiGen;
     import(url).then(function (m) {
+      if (gen !== koiGen) return;   // 已有更新的重建请求，丢弃本次
       var canvas = document.getElementById("pond");
       if (!canvas || !settings.koi.on) return;
       var k = settings.koi;
+      var alpha = k.alpha / 100;   // 预计算一次，避免每帧每鱼重复除法
       pond = m.createKoiPond(canvas, {
         count: k.count,
-        alphaFn: function () { return k.alpha / 100; }
+        alphaFn: function () { return alpha; }
       });
       pond.start();
     });
   }
   function stopKoi() {
+    koiGen++;   // 作废在途 import
     if (pond) { try { pond.destroy(); } catch (e) {} pond = null; }
   }
   function rebuildKoi() { stopKoi(); startKoi(); }
@@ -172,12 +184,16 @@
     else if (name === "grain") syncParamInputs("grain.opacity");
   }
 
-  /* 参数变更 → 对应组件重建（防抖：change 事件松手才触发） */
+  /* 参数变更 → 对应组件重建（change 事件松手才触发；重建再防抖 80ms，合并连敲） */
+  var rebuildTimer = null;
   function applyChanged(path) {
-    var comp = path.split(".")[0];
-    if (comp === "particles") rebuildParticles();
-    else if (comp === "koi") rebuildKoi();
-    else if (comp === "grain") applyGrain();
+    if (rebuildTimer) clearTimeout(rebuildTimer);
+    rebuildTimer = setTimeout(function () {
+      var comp = path.split(".")[0];
+      if (comp === "particles") rebuildParticles();
+      else if (comp === "koi") rebuildKoi();
+      else if (comp === "grain") applyGrain();
+    }, 80);
   }
 
   /* ---------- 初始化 ---------- */
@@ -187,8 +203,9 @@
 
     if (dialog) {
       var panel = dialog.querySelector(".settings-panel");
-      panel.dataset.view = "main";   // 默认主视图（CSS 控制显隐）
-      $("[data-action=close]", dialog).addEventListener("click", function () { dialog.close(); });
+      if (panel) panel.dataset.view = "main";   // 默认主视图（CSS 控制显隐）
+      var closeBtn = $("[data-action=close]", dialog);
+      if (closeBtn) closeBtn.addEventListener("click", function () { dialog.close(); });
       // 遮罩点击关闭（原生 dialog 点 ::backdrop 不会自动关）
       dialog.addEventListener("click", function (ev) {
         if (ev.target === dialog) dialog.close();
@@ -244,8 +261,8 @@
         num.addEventListener("change", function () {
           var v = parseFloat(num.value);
           var min = parseFloat(num.min), max = parseFloat(num.max);
-          if (isNaN(v)) v = getPath(DEFAULTS, num.dataset.num);
-          v = Math.min(max, Math.max(min, v));
+          if (isNaN(v)) v = getPath(DEFAULTS, num.dataset.num);   // 非法输入回退默认
+          if (isFinite(min) && isFinite(max)) v = Math.min(max, Math.max(min, v));
           setPath(settings, num.dataset.num, v);
           save(); applyChanged(num.dataset.num); syncParamInputs(num.dataset.num);
         });

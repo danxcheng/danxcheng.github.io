@@ -1,0 +1,7 @@
+{{- /* 菜单单项：圆点 + 链接 + 当前页高亮（active/aria-current）。
+         active 由调用方传入（顶层用 HasMenuCurrent、子项用 IsMenuCurrent，语义不同）。 */}}
+{{- $active := .active }}
+<li class="nav-item{{ if $active }} active{{ end }}">
+  <span class="nav-dot" aria-hidden="true"></span>
+  <a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+</li>

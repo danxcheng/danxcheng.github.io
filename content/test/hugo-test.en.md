@@ -25,7 +25,7 @@ Testing h2-h6 (h1 is reserved for the article title).
 
 ## Paragraphs and inline styles
 
-Plain paragraph with **bold**, *italic*, ~~strikethrough~~, `inline code`, an [external link](https://gohugo.io/) and an [internal link](/zh/posts/beiying/). Inline styles can be **mixed with *italic* and `code`**.
+Plain paragraph with **bold**, *italic*, ~~strikethrough~~, `inline code`, an [external link](https://gohugo.io/) and an [internal link](/zh/test/beiying/)  <!-- beiying exists in Chinese only -->. Inline styles can be **mixed with *italic* and `code`**.
 
 ## Blockquotes
 

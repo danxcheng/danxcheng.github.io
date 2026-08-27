@@ -1,18 +1,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-{{- /* 非首页显示 "页面标题 - 站点名" */}}
-<title>{{ if not .IsHome }}{{ .Title }} - {{ end }}{{ site.Title }}</title>
+{{- /* 标题拼接：非首页显示 "页面标题 - 站点名"（title 与 RSS 共用） */}}
+{{- $title := printf "%s%s" (cond (not .IsHome) (printf "%s - " .Title) "") site.Title }}
+<title>{{ $title }}</title>
 
 {{- /* SEO 描述回退链：页面 description → 正文摘要 → 站点参数 */}}
-<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | htmlUnescape }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
+<meta name="description" content="{{ .Description | default (.Summary | plainify | htmlUnescape) | default site.Params.description }}">
 
 <link rel="canonical" href="{{ .Permalink }}">
 {{ hugo.Generator }}
 
 {{- /* RSS 自动发现（地址栏可见订阅源） */}}
 {{ with .OutputFormats.Get "rss" }}
-    <link rel="alternate" type="application/rss+xml" title="{{ if not $.IsHome }}{{ $.Title }} - {{ end }}{{ site.Title }}" href="{{ .Permalink }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ $title }}" href="{{ .Permalink }}">
 {{ end }}
 
 {{- /* Favicon：主图在 static/（由 /home/xc/图片/image/Danxcheng.png 生成）。
@@ -27,4 +28,4 @@
 {{ template "_internal/opengraph.html" . }}
 {{ template "_internal/twitter_cards.html" . }}
 
-{{ partialCached "head/css.html" . }}
+{{ partialCached "head/css.html" . "head-css" }}

@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           submodules: recursive
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Setup Pages
         id: pages
@@ -52,8 +52,18 @@ jobs:
           tar -C "${{ runner.temp }}/hugo" -xzf "${{ runner.temp }}/hugo.tar.gz"
           echo "${{ runner.temp }}/hugo" >> "${GITHUB_PATH}"
 
+      - name: Cache Hugo resources
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/hugo-cache
+          key: hugo-${{ env.HUGO_VERSION }}-${{ hashFiles('hugo.toml') }}
+          restore-keys: |
+            hugo-${{ env.HUGO_VERSION }}-
+
       - name: Build
-        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: hugo --minify --gc --cleanDestinationDir --baseURL "${{ steps.pages.outputs.base_url }}/"
+        env:
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo-cache
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

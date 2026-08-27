@@ -1,0 +1,10 @@
+{{- /* 文章列表：标题左、日期右（CSS justify-content: space-between）。
+         接收 .Pages（已分页或未分页均可）。日期无值（未发布日期的草稿）时留空。 */}}
+<ul class="post-list">
+    {{- range .Pages }}
+        <li class="post-item">
+            <a class="post-title" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+            <span class="post-date">{{ with .Date }}{{ .Format "2006/01/02" }}{{ end }}</span>
+        </li>
+    {{- end }}
+</ul>

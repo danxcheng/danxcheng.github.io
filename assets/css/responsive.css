@@ -4,8 +4,8 @@
   .layout { grid-template-columns: var(--grid-side) minmax(0, 1fr); }
 }
 
-/* 移动端（≤768px）：三栏改单列，侧栏变顶栏 */
-@media (max-width: 768px) {
+/* 移动端（<768px）：三栏改单列，侧栏变顶栏（767.98 避免与 layout 的 min-width:768 双命中） */
+@media (max-width: 767.98px) {
   body { font-size: 16px; }
 
   .layout {
@@ -18,17 +18,12 @@
   .sidebar, .content, .rightbar, .site-footer { grid-column: 1; grid-row: auto; }
 
   .sidebar { position: static; top: auto; width: 100%; }
-  .rightbar { display: none; }   /* 移动端无三栏，日期回到文章标题下方 */
 
-  .content-body { width: 100%; }
   .display { margin: 0 0 2.5rem; }
 
   /* 标题切换：侧栏头显示，正文列顶部隐藏 */
   .display-desktop { display: none; }
   .display-mobile { display: block; }
-
-  /* 移动端不居中 */
-  .sidebar, .content { margin: 0; }
 
   .sidebar-head { margin-bottom: 1.5rem; }   /* 移动端单列，无需与正文对齐 */
 
@@ -51,7 +46,7 @@
 
   /* 语言列表内联（触摸设备无法悬停） */
   .lang-switch { margin-top: 1.25rem; }
-  .lang-list { display: block; position: static; bottom: auto; margin-top: 0.5rem; }
+  .lang-list { display: block; position: static; margin-top: 0.5rem; }
 
   .display-article { margin: 0 0 2rem; }
 

@@ -524,7 +524,7 @@ var drawKoi = (ctx, koi, alpha) => {
   const ep = spine[eyeIdx];
   const en = perp(spine, eyeIdx);
   const eyeOff = widthAt(eyeIdx / (n - 1)) * maxHW * 0.45;
-  const eyeR = s * 0.025;
+  const eyeR = s * 0.09;  /* 修正笔误：0.025 时眼睛不可见 */
   ctx.beginPath();
   ctx.arc(ep.x + en.x * eyeOff, ep.y + en.y * eyeOff, eyeR, 0, Math.PI * 2);
   ctx.fill();
