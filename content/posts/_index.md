@@ -5,6 +5,5 @@ title = '文章'
 
 [navigation]
   show = true
-  group = 'sections'
   weight = 10
 +++

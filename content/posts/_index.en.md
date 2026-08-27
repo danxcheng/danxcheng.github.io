@@ -4,6 +4,5 @@ title = 'Posts'
 
 [navigation]
   show = true
-  group = 'sections'
   weight = 10
 +++

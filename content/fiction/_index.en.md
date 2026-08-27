@@ -11,6 +11,5 @@ title = 'Fiction'
 
 [navigation]
   show = true
-  group = 'sections'
   weight = 20
 +++

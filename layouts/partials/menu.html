@@ -1,16 +1,9 @@
-{{- /* ============================================================
-       主菜单：Content + Front Matter 驱动（不再读 site.Menus / hugo.toml 菜单）。
-       结构：
-         1. 首页       —— 固定链接（i18n 文案），当前页高亮
-         2. "栏目"分组 —— 固定分组（i18n 文案），子项来自内容树：
-            - 顶层 Section（_index.md）与顶层 Page（content/xxx.md）
-            - 仅 navigation.show=true 的进入导航（默认 false）
-            - 同一层级按 navigation.weight 升序排序
-            - 显示名 = 当前语言的 Page.Title（无需在 hugo.toml 维护名称）
-       高亮：基于 Page identity（RelPermalink 精确匹配 / IsDescendant 命中所在 Section），
-             不再使用 IsMenuCurrent / HasMenuCurrent。
-       第一版只支持两级（分组 → 节点），不实现无限嵌套。
-       ============================================================ */}}
+{{- /* 主菜单：Content + Front Matter 驱动。实现见 docs/navigation-contract.md（契约 v0.1）。
+       - Content Tree 是唯一事实来源
+       - navigation.show=true 才暴露节点（默认隐藏）
+       - 所有可见节点统一进唯一的"栏目"分组
+       - navigation.group 为未来预留，v0.1 不参与逻辑
+       - 顶层 Page 与顶层 Section 统一作为分组子项渲染 */}}
 {{- $page := .page }}
 {{- $nodes := slice }}
 
