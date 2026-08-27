@@ -226,7 +226,12 @@
       });
       // 参数控件：range 的 change（松手）与 number 的 change
       $$("[data-range]", dialog).forEach(function (rng) {
-        rng.addEventListener("input", function () { syncParamInputs(rng.dataset.range); });  // 拖动中只同步数字显示
+        // 拖动中：只把当前值同步到数字框（绝不回写 range——否则滑块被弹回旧值无法拖动）
+        rng.addEventListener("input", function () {
+          var num = $('[data-num="' + rng.dataset.range + '"]');
+          if (num) num.value = rng.value;
+        });
+        // 松手（change）：写设置、应用、同步
         rng.addEventListener("change", function () {
           setPath(settings, rng.dataset.range, parseFloat(rng.value));
           save(); applyChanged(rng.dataset.range); syncParamInputs(rng.dataset.range);

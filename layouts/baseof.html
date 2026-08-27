@@ -83,17 +83,17 @@
       <div data-view="main" class="settings-view">
         <div class="settings-row">
           <span class="settings-name">粒子（点线）</span>
-          <label class="settings-switch"><input type="checkbox" data-toggle="particles"><span></span></label>
+          <label class="settings-switch"><input type="checkbox" data-toggle="particles"><span></span></div>
           <button class="settings-btn" type="button" data-detail="particles">调整</button>
         </div>
         <div class="settings-row">
           <span class="settings-name">锦鲤</span>
-          <label class="settings-switch"><input type="checkbox" data-toggle="koi"><span></span></label>
+          <label class="settings-switch"><input type="checkbox" data-toggle="koi"><span></span></div>
           <button class="settings-btn" type="button" data-detail="koi">调整</button>
         </div>
         <div class="settings-row">
           <span class="settings-name">纸噪点</span>
-          <label class="settings-switch"><input type="checkbox" data-toggle="grain"><span></span></label>
+          <label class="settings-switch"><input type="checkbox" data-toggle="grain"><span></span></div>
           <button class="settings-btn" type="button" data-detail="grain">调整</button>
         </div>
         <div class="settings-row">
@@ -112,22 +112,22 @@
       {{- /* 粒子详情 */}}
       <div data-view="particles" class="settings-view" hidden>
         <h3>粒子设置</h3>
-        <label class="settings-param">数量
+        <div class="settings-param"><span>数量</span>
           <input type="range" min="10" max="200" step="1" data-range="particles.count">
           <input type="number" min="10" max="200" data-num="particles.count">
-        </label>
-        <label class="settings-param">大小
+        </div>
+        <div class="settings-param"><span>大小</span>
           <input type="range" min="1" max="10" step="1" data-range="particles.size">
           <input type="number" min="1" max="10" data-num="particles.size">
-        </label>
-        <label class="settings-param">速度
+        </div>
+        <div class="settings-param"><span>速度</span>
           <input type="range" min="1" max="8" step="1" data-range="particles.speed">
           <input type="number" min="1" max="8" data-num="particles.speed">
-        </label>
-        <label class="settings-param">连线距离
+        </div>
+        <div class="settings-param"><span>连线距离</span>
           <input type="range" min="40" max="200" step="10" data-range="particles.linkDistance">
           <input type="number" min="40" max="200" data-num="particles.linkDistance">
-        </label>
+        </div>
         <div class="settings-foot">
           <button class="settings-btn" type="button" data-action="back">返回</button>
           <button class="settings-btn" type="button" data-action="reset" data-reset="particles">重置</button>
@@ -137,14 +137,14 @@
       {{- /* 锦鲤详情 */}}
       <div data-view="koi" class="settings-view" hidden>
         <h3>锦鲤设置</h3>
-        <label class="settings-param">数量
+        <div class="settings-param"><span>数量</span>
           <input type="range" min="3" max="30" step="1" data-range="koi.count">
           <input type="number" min="3" max="30" data-num="koi.count">
-        </label>
-        <label class="settings-param">透明度（%）
+        </div>
+        <div class="settings-param"><span>透明度（%）</span>
           <input type="range" min="10" max="100" step="5" data-range="koi.alpha">
           <input type="number" min="10" max="100" data-num="koi.alpha">
-        </label>
+        </div>
         <div class="settings-foot">
           <button class="settings-btn" type="button" data-action="back">返回</button>
           <button class="settings-btn" type="button" data-action="reset" data-reset="koi">重置</button>
@@ -154,10 +154,10 @@
       {{- /* 噪点详情 */}}
       <div data-view="grain" class="settings-view" hidden>
         <h3>纸噪点设置</h3>
-        <label class="settings-param">强度（%）
+        <div class="settings-param"><span>强度（%）</span>
           <input type="range" min="0" max="10" step="0.5" data-range="grain.opacity">
           <input type="number" min="0" max="10" step="0.5" data-num="grain.opacity">
-        </label>
+        </div>
         <div class="settings-foot">
           <button class="settings-btn" type="button" data-action="back">返回</button>
           <button class="settings-btn" type="button" data-action="reset" data-reset="grain">重置</button>

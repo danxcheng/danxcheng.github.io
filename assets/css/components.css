@@ -103,20 +103,20 @@
    组件设置面板（原生 <dialog>）
    ============================================================ */
 
-/* 右栏底部的"组件"入口 */
+/* 右栏底部的"组件"入口：纯文字，无边框盒子（与极简纸感搭配） */
 .settings-entry {
   margin-top: 3rem;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: transparent;
+  border: none;
+  background: none;
+  padding: 0;
   color: var(--muted);
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.15s;
 }
-.settings-entry:hover { color: var(--link); border-color: var(--link); }
+.settings-entry:hover { color: var(--link); }
 
 /* 弹窗本体：纸面质感卡片 */
 #settings-dialog {
@@ -128,6 +128,11 @@
   max-width: 380px;
   width: calc(100vw - 3rem);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+/* 浅色下弹窗与纸面同底，用细边框+投影区分层级 */
+:root[data-theme="light"] #settings-dialog,
+html:not([data-theme]) #settings-dialog {
+  background: #fffdf7;
 }
 #settings-dialog::backdrop { background: rgba(20, 16, 10, 0.45); }
 
@@ -200,16 +205,56 @@
 }
 .settings-btn:hover { color: var(--link); border-color: var(--link); }
 
-/* 参数行：滑块 + 数字 */
+/* 参数行：名称 + 滑块 + 数字 */
 .settings-param {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.45rem 0;
+  gap: 0.7rem;
+  padding: 0.5rem 0;
   font-size: 0.85rem;
 }
-.settings-param > :first-child { flex: 1; }
-.settings-param input[type="range"] { flex: 1; accent-color: var(--link); }
+.settings-param > span { flex: 1; color: var(--text); }
+
+/* 滑块：自定义轨道 + 朱砂拇指（浅色下清晰可见） */
+.settings-param input[type="range"] {
+  flex: 1;
+  min-width: 0;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.settings-param input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+}
+.settings-param input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--link);
+  border: 2px solid var(--bg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.settings-param input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+}
+.settings-param input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--link);
+  border: 2px solid var(--bg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
 .settings-param input[type="number"] {
   width: 4rem;
   border: 1px solid var(--border);
